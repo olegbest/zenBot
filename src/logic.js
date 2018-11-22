@@ -11,45 +11,74 @@ class Logic {
         this.updates = new this.BotsLongPollUpdatesProvider(this.api, this.group_id);
         this.newMessage = new newMessageLogic(this.api, this.methods);
         this.apiApp = bot.apiApp;
+        this.listen = bot.listen;
     }
 
     start() {
         // this.methods.changePhotoGroup(__dirname + '/test.jpg', this.group_id);
-        this.updates.getUpdates(async updates => {
-            console.log(updates);
-            if (updates) {
-                if (updates.length > 0) {
-
-                    for (let i = 0; i < updates.length; i++) {
-                        let u = updates[i];
-                        switch (u.type) {
-                            case 'message_new': {
-                                console.log("new message");
-                                await this.newMessage.logic(u);
-                                break;
-                            }
-                            case 'wall_reply_new': { // коммент на пост
-                                await newCommentOrRepost(u.object.from_id, u.object.post_id, 'comments');
-                                break;
-                            }
-                            case 'wall_reply_delete': { //удалил коммент
-                                break;
-                            }
-
-                            case 'wall_repost': { //репост записи
-                                await newCommentOrRepost(u.object.from_id, u.object.post_id, 'repost');
-                                break;
-                            }
-
-                            default: {
-                                break;
-                            }
-
-                        }
-                    }
-                }
+        this.listen.on(async (ctx) => {
+            console.log(ctx);
+            let u = {
+                object: ctx.message,
+                group_id: this.group_id
             }
+            await this.newMessage.logic(u);
         });
+
+        this.listen.event("wall_reply_new", async (ctx) => {
+            console.log(ctx);
+            let u = {
+                object: ctx.message,
+                group_id: this.group_id
+            };
+            await newCommentOrRepost(u.object.from_id, u.object.post_id, 'comments');
+        });
+        this.listen.event("wall_repost", async (ctx) => {
+            console.log(ctx);
+            let u = {
+                object: ctx.message,
+                group_id: this.group_id
+            }
+            await newCommentOrRepost(u.object.from_id, u.object.post_id, 'repost');
+        });
+
+        this.listen.startPolling()
+        //
+        // this.updates.getUpdates(async updates => {
+        //     // console.log(updates);
+        //     if (updates) {
+        //         if (updates.length > 0) {
+        //
+        //             for (let i = 0; i < updates.length; i++) {
+        //                 let u = updates[i];
+        //                 switch (u.type) {
+        //                     case 'message_new': {
+        //                         console.log("new message");
+        //                         await this.newMessage.logic(u);
+        //                         break;
+        //                     }
+        //                     case 'wall_reply_new': { // коммент на пост
+        //                         await newCommentOrRepost(u.object.from_id, u.object.post_id, 'comments');
+        //                         break;
+        //                     }
+        //                     case 'wall_reply_delete': { //удалил коммент
+        //                         break;
+        //                     }
+        //
+        //                     case 'wall_repost': { //репост записи
+        //                         await newCommentOrRepost(u.object.from_id, u.object.post_id, 'repost');
+        //                         break;
+        //                     }
+        //
+        //                     default: {
+        //                         break;
+        //                     }
+        //
+        //                 }
+        //             }
+        //         }
+        //     }
+        // });
         setInterval(async () => {
             let posts = await this.apiApp.call("wall.get", {owner_id: -this.group_id});
             if (posts) {

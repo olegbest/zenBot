@@ -1,0 +1,1142 @@
+{
+  "day1": {
+    "state0": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Привет!",
+          "delayTime": 500
+        },
+        {
+          "type": "text",
+          "value": "Я Олег лучше всех. Сегодня мы познакомимся и оценим твою уверенность в себе :-)",
+          "delayTime": 2000
+        },
+        {
+          "type": "button",
+          "value": "Насколько вы уверены в себе?",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "На все 100",
+              "payload": {
+                "point": 10,
+                "nextS": "state1"
+              }
+            },
+            {
+              "val": "Хз",
+              "payload": {
+                "point": 0,
+                "nextS": "state1"
+              }
+            },
+            {
+              "val": "Полный 0",
+              "payload": {
+                "point": 5,
+                "nextS": "state1"
+              }
+            },
+            {
+              "val": "Олег",
+              "payload": {
+                "point": 20,
+                "nextS": "state1"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "check-button-state0": {
+      "isCheck": true,
+      "isButton": true,
+      "value": "Используйте кнопки"
+    },
+    "state1": {
+      "id": 1,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Жрешь?",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "Жру",
+              "payload": {
+                "point": 10,
+                "nextS": "state2"
+              }
+            },
+            {
+              "val": "Нет",
+              "payload": {
+                "point": 0,
+                "nextS": "state2"
+              }
+            },
+            {
+              "val": "Сам жрешь",
+              "payload": {
+                "point": 5,
+                "nextS": "state2"
+              }
+            },
+            {
+              "val": "Олег",
+              "payload": {
+                "point": 20,
+                "nextS": "state2"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state2": {
+      "id": 1,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Is London a capital of Great Britain?",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "Дебил?",
+              "payload": {
+                "point": 10,
+                "nextS": "state3"
+              }
+            },
+            {
+              "val": "Yes",
+              "payload": {
+                "point": 0,
+                "nextS": "state3"
+              }
+            },
+            {
+              "val": "No",
+              "payload": {
+                "point": 5,
+                "nextS": "state3"
+              }
+            },
+            {
+              "val": "I speak English very well ;)",
+              "payload": {
+                "point": 20,
+                "nextS": "state3"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state3": {
+      "id": 1,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Насколько вы уверены в себе 4?",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "На все 100",
+              "payload": {
+                "point": 10,
+                "nextS": "state4"
+              }
+            },
+            {
+              "val": "Хз",
+              "payload": {
+                "point": 0,
+                "nextS": "state4"
+              }
+            },
+            {
+              "val": "Полный 0",
+              "payload": {
+                "point": 5,
+                "nextS": "state4"
+              }
+            },
+            {
+              "val": "Олег",
+              "payload": {
+                "point": 20,
+                "nextS": "state4"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state4": {
+      "id": 1,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Насколько вы уверены в себе 5?",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "На все 100",
+              "payload": {
+                "point": 10,
+                "nextS": "state5"
+              }
+            },
+            {
+              "val": "Хз",
+              "payload": {
+                "point": 0,
+                "nextS": "state5"
+              }
+            },
+            {
+              "val": "Полный 0",
+              "payload": {
+                "point": 5,
+                "nextS": "state5"
+              }
+            },
+            {
+              "val": "Олег",
+              "payload": {
+                "point": 20,
+                "nextS": "state5"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state5": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Мне нужен список из твоих достоинств. Напиши на листике и скинь мне ФОТО!",
+          "nextState": "check-photo-state"
+        }
+      ]
+    },
+    "check-photo-state": {
+      "isCheck": true,
+      "isPhoto": true,
+      "value": "Скинь фото мудак!!!",
+      "success": "state6"
+    },
+    "state6": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Смотри видео! \n https://www.youtube.com/watch?v=Mm7WJvDmsFE",
+          "nextState": "state7"
+        }
+      ]
+    },
+    "state7": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Сколько очков ты хочешь получить?",
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "0 очков",
+              "payload": {
+                "point": 10,
+                "nextS": "state8"
+              }
+            },
+            {
+              "val": "10 очков",
+              "payload": {
+                "point": 10,
+                "nextS": "state8"
+              }
+            },
+            {
+              "val": "100 очков",
+              "payload": {
+                "point": 10,
+                "nextS": "state8"
+              }
+            },
+            {
+              "val": "1000",
+              "payload": {
+                "point": 10,
+                "nextS": "state8"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state8": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Вопрос про бренд*. Что я за бренд?????",
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "Олег",
+              "payload": {
+                "point": 10,
+                "nextS": "state9"
+              }
+            },
+            {
+              "val": "Олег лучше всех!",
+              "payload": {
+                "point": 10,
+                "nextS": "state9"
+              }
+            },
+            {
+              "val": "Красавчик",
+              "payload": {
+                "point": 10,
+                "nextS": "state9"
+              }
+            },
+            {
+              "val": "Я тупой.",
+              "payload": {
+                "point": 10,
+                "nextS": "state9"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state9": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Читай. https://lifeo.ru/chto-delat-esli-ya-debil/ \n полезно.",
+          "nextState": "check-button-state0"
+        },
+        {
+          "type": "button",
+          "value": "У меня к тебе вопрос. \n ТЫ ПОНЯЛ?",
+          "delayTime": 5000,
+          "buttons": [
+            {
+              "val": "ДА",
+              "payload": {
+                "point": 10,
+                "nextS": "state10"
+              }
+            },
+            {
+              "val": "да",
+              "payload": {
+                "point": 10,
+                "nextS": "state10"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state10": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Отлично. Подведем итоги. Ты стал очень увереным в себе.",
+          "nextState": "state11"
+        },
+        {
+          "type": "text",
+          "value": "А сейчас иди отсюда.",
+          "nextState": "state11",
+          "delayTime": 1000
+        }
+      ]
+    }
+  },
+  "day2": {
+    "state0": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Привет!",
+          "delayTime": 500
+        },
+        {
+          "type": "text",
+          "value": "Уже второй день",
+          "delayTime": 2000
+        },
+        {
+          "type": "text",
+          "value": "Сегодня  мы работаем над комплексами с твоей внешностью",
+          "delayTime": 2000
+        },
+        {
+          "type": "button",
+          "value": "Оцени свою внешность по 10-бальнной шкале.",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "1",
+              "payload": {
+                "point": 10,
+                "nextS": "state1"
+              }
+            },
+            {
+              "val": "2",
+              "payload": {
+                "point": 0,
+                "nextS": "state1"
+              }
+            },
+            {
+              "val": "3",
+              "payload": {
+                "point": 5,
+                "nextS": "state1"
+              }
+            },
+            {
+              "val": "4",
+              "payload": {
+                "point": 20,
+                "nextS": "state1"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "check-button-state0": {
+      "isCheck": true,
+      "isButton": true,
+      "value": "Ты за сутки забыл, что нужно пользоваться кнопками?"
+    },
+    "state1": {
+      "id": 1,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Любишь детей?",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "да",
+              "payload": {
+                "point": 10,
+                "nextS": "state2"
+              }
+            },
+            {
+              "val": "Нет",
+              "payload": {
+                "point": 0,
+                "nextS": "state2"
+              }
+            },
+            {
+              "val": "Люблю",
+              "payload": {
+                "point": 5,
+                "nextS": "state2"
+              }
+            },
+            {
+              "val": "не люблю",
+              "payload": {
+                "point": 20,
+                "nextS": "state2"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state2": {
+      "id": 1,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Ты привлекателен?",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "Я воробушек",
+              "payload": {
+                "point": 10,
+                "nextS": "state3"
+              }
+            },
+            {
+              "val": "Да",
+              "payload": {
+                "point": 0,
+                "nextS": "state3"
+              }
+            },
+            {
+              "val": "Нет",
+              "payload": {
+                "point": 5,
+                "nextS": "state3"
+              }
+            },
+            {
+              "val": "Я не знаю",
+              "payload": {
+                "point": 20,
+                "nextS": "state3"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state3": {
+      "id": 1,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Помни быть НЕ привликательным не беда. Ты сгодишься на рабочий труд.",
+          "delayTime": 500
+        },
+        {
+          "type": "button",
+          "value": "В кого ты такой?",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "В маму",
+              "payload": {
+                "point": 10,
+                "nextS": "state4"
+              }
+            },
+            {
+              "val": "Я не знаю",
+              "payload": {
+                "point": 0,
+                "nextS": "state4"
+              }
+            },
+            {
+              "val": "В папу",
+              "payload": {
+                "point": 5,
+                "nextS": "state4"
+              }
+            },
+            {
+              "val": "Я один такой",
+              "payload": {
+                "point": 20,
+                "nextS": "state4"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state4": {
+      "id": 1,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Тут должен быть еще один вопрос, но и так все понятно.",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "Не понятно",
+              "payload": {
+                "point": 10,
+                "nextS": "state5"
+              }
+            },
+            {
+              "val": "ок",
+              "payload": {
+                "point": 0,
+                "nextS": "state5"
+              }
+            },
+            {
+              "val": "тык",
+              "payload": {
+                "point": 5,
+                "nextS": "state5"
+              }
+            },
+            {
+              "val": "+",
+              "payload": {
+                "point": 20,
+                "nextS": "state5"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state5": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Составь список внешних достоинств и недостатков.",
+          "nextState": "check-photo-state"
+        },
+        {
+          "type": "text",
+          "value": "Скинь ФОТО",
+          "nextState": "check-photo-state"
+        }
+      ]
+    },
+    "check-photo-state": {
+      "isCheck": true,
+      "isPhoto": true,
+      "value": "Здесь должна быть фотка.",
+      "success": "state6"
+    },
+    "state6": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Смотри видео! \n https://www.youtube.com/watch?v=Mm7WJvDmsFE",
+          "nextState": "state7"
+        },
+        {
+          "type": "button",
+          "value": "Сколько очков у тебя отнять?",
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "0 очков",
+              "payload": {
+                "point": 10,
+                "nextS": "state8"
+              }
+            },
+            {
+              "val": "10 очков",
+              "payload": {
+                "point": 10,
+                "nextS": "state8"
+              }
+            },
+            {
+              "val": "100 очков",
+              "payload": {
+                "point": 10,
+                "nextS": "state8"
+              }
+            },
+            {
+              "val": "1000",
+              "payload": {
+                "point": 10,
+                "nextS": "state8"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state8": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Вопрос про бренд*. Что я за бренд?????",
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "Олег",
+              "payload": {
+                "point": 10,
+                "nextS": "state9"
+              }
+            },
+            {
+              "val": "Олег лучше всех!",
+              "payload": {
+                "point": 10,
+                "nextS": "state9"
+              }
+            },
+            {
+              "val": "Красавчик",
+              "payload": {
+                "point": 10,
+                "nextS": "state9"
+              }
+            },
+            {
+              "val": "Я тупой.",
+              "payload": {
+                "point": 10,
+                "nextS": "state9"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state9": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Читай. https://otvet.mail.ru/question/91002400",
+          "nextState": "check-button-state0"
+        },
+        {
+          "type": "button",
+          "value": "У меня к тебе вопрос.",
+          "delayTime": 5000,
+          "buttons": [
+            {
+              "val": "Где вопрос?",
+              "payload": {
+                "point": 10,
+                "nextS": "state10"
+              }
+            },
+            {
+              "val": "Какой вопрос?",
+              "payload": {
+                "point": 10,
+                "nextS": "state10"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state10": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Подведем итоги. Произошла магия. Ты стал 'Красавчиком'",
+          "nextState": "state11"
+        },
+        {
+          "type": "text",
+          "value": "Увидимся через сутки",
+          "nextState": "state11",
+          "delayTime": 1000
+        }
+      ]
+    }
+  },
+  "day3": {
+    "state0": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Привет!",
+          "delayTime": 500
+        },
+        {
+          "type": "text",
+          "value": "Уже третий день",
+          "delayTime": 2000
+        },
+        {
+          "type": "text",
+          "value": "Сегодня  мы научимся ухаживать за твоей кожей",
+          "delayTime": 2000
+        },
+        {
+          "type": "button",
+          "value": "Ты пользуешься кремами?",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "Да",
+              "payload": {
+                "point": 10,
+                "nextS": "state1"
+              }
+            },
+            {
+              "val": "Нет",
+              "payload": {
+                "point": 0,
+                "nextS": "state1"
+              }
+            },
+            {
+              "val": "Каждый день",
+              "payload": {
+                "point": 5,
+                "nextS": "state1"
+              }
+            },
+            {
+              "val": "Каждую неделю",
+              "payload": {
+                "point": 20,
+                "nextS": "state1"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "check-button-state0": {
+      "isCheck": true,
+      "isButton": true,
+      "value": "Жми на кнопки!!!"
+    },
+    "state1": {
+      "id": 1,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Ты моешься?",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "Нет",
+              "payload": {
+                "point": 10,
+                "nextS": "state2"
+              }
+            },
+            {
+              "val": "Еще не мылся",
+              "payload": {
+                "point": 0,
+                "nextS": "state2"
+              }
+            },
+            {
+              "val": "Иногда",
+              "payload": {
+                "point": 5,
+                "nextS": "state2"
+              }
+            },
+            {
+              "val": "не люблю",
+              "payload": {
+                "point": 20,
+                "nextS": "state2"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state2": {
+      "id": 1,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Ты носишь кожанку?",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "Да",
+              "payload": {
+                "point": 10,
+                "nextS": "state3"
+              }
+            },
+            {
+              "val": "нет",
+              "payload": {
+                "point": 0,
+                "nextS": "state3"
+              }
+            },
+            {
+              "val": "Что это такое?",
+              "payload": {
+                "point": 5,
+                "nextS": "state3"
+              }
+            },
+            {
+              "val": "А причем тут это?",
+              "payload": {
+                "point": 20,
+                "nextS": "state3"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state3": {
+      "id": 1,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Давишь прищи?",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "Другие давят",
+              "payload": {
+                "point": 10,
+                "nextS": "state4"
+              }
+            },
+            {
+              "val": "Я не знаю",
+              "payload": {
+                "point": 0,
+                "nextS": "state4"
+              }
+            },
+            {
+              "val": "Сейчас холодно",
+              "payload": {
+                "point": 5,
+                "nextS": "state4"
+              }
+            },
+            {
+              "val": "Я один такой",
+              "payload": {
+                "point": 20,
+                "nextS": "state4"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state4": {
+      "id": 1,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Идем дальше?",
+          "delayTime": 1500,
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "Не понятно",
+              "payload": {
+                "point": 10,
+                "nextS": "state5"
+              }
+            },
+            {
+              "val": "ок",
+              "payload": {
+                "point": 0,
+                "nextS": "state5"
+              }
+            },
+            {
+              "val": "тык",
+              "payload": {
+                "point": 5,
+                "nextS": "state5"
+              }
+            },
+            {
+              "val": "+",
+              "payload": {
+                "point": 20,
+                "nextS": "state5"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state5": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Составь план ухода за кожей на неделю. У тебя есть 5 минут",
+          "nextState": "check-photo-state"
+        },
+        {
+          "type": "text",
+          "value": "И скинь ФОТО",
+          "nextState": "check-photo-state"
+        }
+      ]
+    },
+    "check-photo-state": {
+      "isCheck": true,
+      "isPhoto": true,
+      "value": "Мяу. Я хочу фотку.",
+      "success": "state6"
+    },
+    "state6": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Смотри видео! \n https://www.youtube.com/watch?v=Mm7WJvDmsFE",
+          "nextState": "state7"
+        },
+        {
+          "type": "button",
+          "value": "О чем видео?",
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "Я не смотрел",
+              "payload": {
+                "point": 10,
+                "nextS": "state8"
+              }
+            },
+            {
+              "val": "Потом посмотрю",
+              "payload": {
+                "point": 10,
+                "nextS": "state8"
+              }
+            },
+            {
+              "val": "О уходе за кожей",
+              "payload": {
+                "point": 10,
+                "nextS": "state8"
+              }
+            },
+            {
+              "val": "О игре",
+              "payload": {
+                "point": 10,
+                "nextS": "state8"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state8": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "button",
+          "value": "Вопрос про бренд*. Что я за бренд?????",
+          "nextState": "check-button-state0",
+          "buttons": [
+            {
+              "val": "Олег",
+              "payload": {
+                "point": 10,
+                "nextS": "state9"
+              }
+            },
+            {
+              "val": "Олег лучше всех!",
+              "payload": {
+                "point": 10,
+                "nextS": "state9"
+              }
+            },
+            {
+              "val": "Красавчик",
+              "payload": {
+                "point": 10,
+                "nextS": "state9"
+              }
+            },
+            {
+              "val": "Я тупой.",
+              "payload": {
+                "point": 10,
+                "nextS": "state9"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state9": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Читай.",
+          "nextState": "check-button-state0"
+        },
+        {
+          "type": "button",
+          "value": "У меня к тебе вопрос. Прочитал?",
+          "delayTime": 5000,
+          "buttons": [
+            {
+              "val": "Что прочитал?",
+              "payload": {
+                "point": 10,
+                "nextS": "state10"
+              }
+            },
+            {
+              "val": "Какой вопрос?",
+              "payload": {
+                "point": 10,
+                "nextS": "state10"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "state10": {
+      "id": 0,
+      "textArray": [
+        {
+          "type": "text",
+          "value": "Подведем итоги. У тебя классная кожа, а прищи только украшают ее.",
+          "nextState": "state11"
+        },
+        {
+          "type": "text",
+          "value": "Увидимся через сутки",
+          "nextState": "state11",
+          "delayTime": 1000
+        }
+      ]
+    }
+  }
+}

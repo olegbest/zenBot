@@ -116,7 +116,7 @@ class Logic {
                 }
             }
 
-        }, 30000);
+        }, 30 * 1000);
 
         setInterval(async () => {
             let usersTimeToSend = await this.methods.checkTimeToSend(DButils);

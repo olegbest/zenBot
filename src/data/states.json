@@ -54,7 +54,7 @@
     "check-button-state0": {
       "isCheck": true,
       "isButton": true,
-      "value": "Используйте кнопки"
+      "value": ["Используйте кнопки","Есть кнопки", "Принимаем только кнопки"]
     },
     "state1": {
       "id": 1,
@@ -98,7 +98,7 @@
       ]
     },
     "state2": {
-      "id": 1,
+      "id": 2,
       "textArray": [
         {
           "type": "button",
@@ -139,7 +139,7 @@
       ]
     },
     "state3": {
-      "id": 1,
+      "id": 3,
       "textArray": [
         {
           "type": "button",
@@ -180,7 +180,7 @@
       ]
     },
     "state4": {
-      "id": 1,
+      "id": 4,
       "textArray": [
         {
           "type": "button",
@@ -221,7 +221,7 @@
       ]
     },
     "state5": {
-      "id": 0,
+      "id": 5,
       "textArray": [
         {
           "type": "text",
@@ -237,7 +237,7 @@
       "success": "state6"
     },
     "state6": {
-      "id": 0,
+      "id": 6,
       "textArray": [
         {
           "type": "text",
@@ -247,7 +247,7 @@
       ]
     },
     "state7": {
-      "id": 0,
+      "id": 7,
       "textArray": [
         {
           "type": "button",
@@ -287,7 +287,7 @@
       ]
     },
     "state8": {
-      "id": 0,
+      "id": 8,
       "textArray": [
         {
           "type": "button",
@@ -327,7 +327,7 @@
       ]
     },
     "state9": {
-      "id": 0,
+      "id": 9,
       "textArray": [
         {
           "type": "text",
@@ -358,7 +358,7 @@
       ]
     },
     "state10": {
-      "id": 0,
+      "id": 10,
       "textArray": [
         {
           "type": "text",
@@ -376,7 +376,7 @@
   },
   "day2": {
     "state0": {
-      "id": 0,
+      "id": 11,
       "textArray": [
         {
           "type": "text",
@@ -434,10 +434,10 @@
     "check-button-state0": {
       "isCheck": true,
       "isButton": true,
-      "value": "Ты за сутки забыл, что нужно пользоваться кнопками?"
+      "value": ["Ты за сутки забыл, что нужно пользоваться кнопками?"]
     },
     "state1": {
-      "id": 1,
+      "id": 12,
       "textArray": [
         {
           "type": "button",
@@ -478,7 +478,7 @@
       ]
     },
     "state2": {
-      "id": 1,
+      "id": 13,
       "textArray": [
         {
           "type": "button",
@@ -519,7 +519,7 @@
       ]
     },
     "state3": {
-      "id": 1,
+      "id": 14,
       "textArray": [
         {
           "type": "text",
@@ -565,7 +565,7 @@
       ]
     },
     "state4": {
-      "id": 1,
+      "id": 15,
       "textArray": [
         {
           "type": "button",
@@ -606,7 +606,7 @@
       ]
     },
     "state5": {
-      "id": 0,
+      "id": 16,
       "textArray": [
         {
           "type": "text",
@@ -627,7 +627,7 @@
       "success": "state6"
     },
     "state6": {
-      "id": 0,
+      "id": 17,
       "textArray": [
         {
           "type": "text",
@@ -672,7 +672,7 @@
       ]
     },
     "state8": {
-      "id": 0,
+      "id": 18,
       "textArray": [
         {
           "type": "button",
@@ -712,7 +712,7 @@
       ]
     },
     "state9": {
-      "id": 0,
+      "id": 19,
       "textArray": [
         {
           "type": "text",
@@ -743,7 +743,7 @@
       ]
     },
     "state10": {
-      "id": 0,
+      "id": 20,
       "textArray": [
         {
           "type": "text",
@@ -761,7 +761,7 @@
   },
   "day3": {
     "state0": {
-      "id": 0,
+      "id": 21,
       "textArray": [
         {
           "type": "text",
@@ -819,10 +819,10 @@
     "check-button-state0": {
       "isCheck": true,
       "isButton": true,
-      "value": "Жми на кнопки!!!"
+      "value": ["Жми на кнопки!!!"]
     },
     "state1": {
-      "id": 1,
+      "id": 22,
       "textArray": [
         {
           "type": "button",
@@ -863,7 +863,7 @@
       ]
     },
     "state2": {
-      "id": 1,
+      "id": 23,
       "textArray": [
         {
           "type": "button",
@@ -904,7 +904,7 @@
       ]
     },
     "state3": {
-      "id": 1,
+      "id": 24,
       "textArray": [
         {
           "type": "button",
@@ -945,7 +945,7 @@
       ]
     },
     "state4": {
-      "id": 1,
+      "id": 25,
       "textArray": [
         {
           "type": "button",
@@ -986,7 +986,7 @@
       ]
     },
     "state5": {
-      "id": 0,
+      "id": 26,
       "textArray": [
         {
           "type": "text",
@@ -1007,7 +1007,7 @@
       "success": "state6"
     },
     "state6": {
-      "id": 0,
+      "id": 27,
       "textArray": [
         {
           "type": "text",
@@ -1052,7 +1052,7 @@
       ]
     },
     "state8": {
-      "id": 0,
+      "id": 28,
       "textArray": [
         {
           "type": "button",
@@ -1092,7 +1092,7 @@
       ]
     },
     "state9": {
-      "id": 0,
+      "id": 29,
       "textArray": [
         {
           "type": "text",
@@ -1123,7 +1123,7 @@
       ]
     },
     "state10": {
-      "id": 0,
+      "id": 30,
       "textArray": [
         {
           "type": "text",

@@ -42,7 +42,7 @@ class Logic {
             await newCommentOrRepost(u.object.from_id, u.object.post_id, 'repost');
         });
 
-        this.listen.startPolling()
+        this.listen.startPolling();
         //
         // this.updates.getUpdates(async updates => {
         //     // console.log(updates);

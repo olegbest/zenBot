@@ -149,11 +149,12 @@ class newMessage {
                                     }
                                 }])
                             });
-                            await this.sendM.sendButton(user, failedState.value || btn.value, buttons);
+                            let text = failedState.value[Math.floor(Math.random() * failedState.length)]
+                            await this.sendM.sendButton(user, text || btn.value, buttons);
                             await DButils.newMessage({
                                 user_id: user.id,
                                 isBot: true,
-                                text: failedState.value,
+                                text: text,
                             })
                         }
                     }

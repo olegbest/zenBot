@@ -134,7 +134,7 @@ class Logic {
             let link = await getImageGroup();
             await downloadFile(link);
             await this.methods.changePhotoGroup(__dirname + '/zenerit.png', this.group_id);
-        }, 10 * 60 * 1000)
+        }, 4 * 60 * 60 * 1000)
     }
 }
 

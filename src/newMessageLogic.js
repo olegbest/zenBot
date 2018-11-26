@@ -107,9 +107,9 @@ class newMessage {
                             if (el.delayTime) {
                                 await wait(el.delayTime);
                             }
-                            el.value = el.value.replace("{{first_name}}", user.info.first_name || "");
+                            let elText = el.value.replace("{{first_name}}", user.info.first_name || "");
                             if (el.type === "text") {
-                                await this.sendM.sendText(user, el.value);
+                                await this.sendM.sendText(user, elText);
                             } else if (el.type === "button") {
                                 let buttons = [];
 
@@ -122,7 +122,7 @@ class newMessage {
                                         }
                                     }])
                                 });
-                                await this.sendM.sendButton(user, el.value, buttons);
+                                await this.sendM.sendButton(user, elText, buttons);
                             }
                             if (el['nextState']) {
                                 await DButils.updateUser(user.id, {state: nextState});
@@ -132,7 +132,7 @@ class newMessage {
                             await DButils.newMessage({
                                 user_id: user.id,
                                 isBot: true,
-                                text: el.value,
+                                text: elText,
                             });
                         }
                     }

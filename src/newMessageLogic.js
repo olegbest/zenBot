@@ -140,7 +140,7 @@ class newMessage {
                                 text: elText,
                             });
                         }
-                        if (arrT.autoState) {
+                        if (state.autoState) {
                             await this.sendMessage(msg, user, user.state, day, undefined);
                             return
                         }

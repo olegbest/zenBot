@@ -141,6 +141,7 @@ class newMessage {
                             });
                         }
                         if (state.autoState) {
+                            user = await DButils.findUser(user.id);
                             await this.sendMessage(msg, user, user.state, day, undefined);
                             return
                         }

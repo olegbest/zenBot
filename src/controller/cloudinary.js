@@ -11,7 +11,6 @@ async function upload_img(img) {
     return await new Promise((resolve, reject) => {
         cloudinary.v2.uploader.upload(img,
             function (error, result) {
-                console.log(result, error)
                 if (result) {
                     resolve(result)
                 }
@@ -19,21 +18,68 @@ async function upload_img(img) {
     })
 }
 
+//
+async function findFaceAndUploadImg(idImage) {
+    let img = await cloudinary.image(idImage, {
+        gravity: "faces",
+        height: 145,
+        radius: "max",
+        width: 145,
+        crop: "fill"
+    });
+    let link = img.match(/'(.*?)'/)[1];
 
-let img = cloudinary.image("VowhVv6vXNg.jpg", {
-    transformation: [
-        {
-            aspect_ratio: "1:1",
-            background: "#262c35",
-            border: "5px_solid_rgb:ff0000",
-            gravity: "faces",
-            height: 100,
-            radius: "max",
-            width: 235,
-            crop: "crop"
-        },
-        {height: 200, overlay: "ramki107", width: 800, x: -85, crop: "scale"}
-    ]
-})
-console.log(img);
+    return await upload_img(link);
+}
 
+async function getBackGround(user1, user2, user3) {
+    let img = await cloudinary.image("zinerit.png", {
+        transformation: [
+            {underlay: user1.img, x: -680, y: 54},
+            {
+                overlay: {
+                    font_family: "Arial",
+                    font_size: 18,
+                    text: user1.text,
+                    color: "#242424",
+                    text_align: "center"
+                },
+                x: -680,
+                y: 145
+            },
+            {underlay: user2.img, x: -515, y: 54},
+            {
+                overlay: {
+                    font_family: "Arial",
+                    font_size: 18,
+                    text: user2.text,
+                    color: "#242424",
+                    text_align: "center"
+                },
+                x: -515,
+                y: 145
+            },
+            {underlay: user3.img, x: -370, y: 54},
+            {
+                overlay: {
+                    font_family: "Arial",
+                    font_size: 18,
+                    text: user3.text,
+                    color: "#242424",
+                    text_align: "center"
+                },
+                x: -370,
+                y: 145
+            },
+        ]
+    });
+    let link = img.match(/'(.*?)'/)[1];
+    return img.match(/'(.*?)'/)[1];
+}
+
+
+module.exports = {
+    upload_img,
+    findFaceAndUploadImg,
+    getBackGround
+}

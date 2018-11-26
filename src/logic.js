@@ -1,6 +1,9 @@
 const newMessageLogic = require('./newMessageLogic').newMessage;
 const DButils = require('./lib/DButils');
 const methods = require('./controller/metods');
+const request = require('request');
+const fs = require('fs');
+const cloudinary = require('./controller/cloudinary');
 
 class Logic {
     constructor(bot) {
@@ -14,8 +17,7 @@ class Logic {
         this.listen = bot.listen;
     }
 
-    start() {
-        // this.methods.changePhotoGroup(__dirname + '/test.jpg', this.group_id);
+    async start() {
         this.listen.on(async (ctx) => {
             console.log(ctx);
             let u = {
@@ -113,6 +115,7 @@ class Logic {
                     }
                 }
             }
+
         }, 30000);
 
         setInterval(async () => {
@@ -125,12 +128,48 @@ class Logic {
                 };
                 await this.newMessage.sendMessage(msg, u, u.state, u.day, undefined);
             }
-        }, 6 * 1000);
+        }, 60 * 1000);
+
+        setInterval(async () => {
+            let link = await getImageGroup();
+            await downloadFile(link);
+            this.methods.changePhotoGroup(__dirname + '/zenerit.jpg', this.group_id);
+        }, 10 * 60 * 1000)
     }
-
-
 }
 
+
+async function downloadFile(link) {
+    return await new Promise((resolve, reject) => {
+
+        let r = request(link);
+
+        r.on('response', function (res) {
+            res.pipe(fs.createWriteStream('./src/zenerit.' + res.headers['content-type'].split('/')[1]));
+            resolve();
+        });
+    })
+}
+
+async function getImageGroup() {
+    let users = await DButils.getAllUsersWithSort({points: -1});
+    console.log(users);
+    if (users) {
+        let user1 = await cloudinary.upload_img(users[0].info.photo_max_orig),
+            user2 = await cloudinary.upload_img(users[1].info.photo_max_orig),
+            user3 = await cloudinary.upload_img(users[2].info.photo_max_orig);
+        user1 = await cloudinary.findFaceAndUploadImg(user1.public_id);
+        user2 = await cloudinary.findFaceAndUploadImg(user2.public_id);
+        user3 = await cloudinary.findFaceAndUploadImg(user3.public_id);
+
+        let link = await cloudinary.getBackGround(
+            {img: user1.public_id, text: (users[0].info.first_name + "\n" + (users[0].info.last_name || ""))},
+            {img: user2.public_id, text: (users[1].info.first_name + "\n" + (users[1].info.last_name || ""))},
+            {img: user3.public_id, text: (users[2].info.first_name + "\n" + (users[2].info.last_name || ""))},
+        );
+        return link;
+    }
+}
 
 async function getLikes(api, group_id, post_id) {
     return await api.call("likes.getList", {owner_id: -group_id, type: "post", item_id: post_id});

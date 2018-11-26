@@ -67,7 +67,8 @@ class Methods {
                         await DButils.updateUser(u.id, {
                             numberDay: u.numberDay + 1,
                             state: "state0",
-                            day: `day${u.numberDay + 1}`
+                            day: `day${u.numberDay + 1}`,
+                            lastMessageDate: new Date()
                         });
                         u = await DButils.findUser(u.id);
 

@@ -13,6 +13,10 @@ module.exports = {
         return await userModel.find({});
     },
 
+    async getAllUsersWithSort(sortParam){
+        return await userModel.find({}).sort(sortParam);
+    },
+
     async newUser(data) {
         let user = new userModel(data);
         return await user.save();

@@ -126,6 +126,8 @@ class newMessage {
                             } else if (el.type === "photo") {
                                 let photo = await this.methods.getPhotoMessage(el.photo);
                                 console.log(photo);
+                                let attach = `photo${photo.owner_id}_${photo.id}`;
+                                await this.sendM.sendAttachment(user, elText, attach)
                             }
                             if (el['nextState']) {
                                 await DButils.updateUser(user.id, {state: nextState});

@@ -133,7 +133,7 @@ class Logic {
         setInterval(async () => {
             let link = await getImageGroup();
             await downloadFile(link);
-            this.methods.changePhotoGroup(__dirname + '/zenerit.jpg', this.group_id);
+            await this.methods.changePhotoGroup(__dirname + '/zenerit.png', this.group_id);
         }, 10 * 60 * 1000)
     }
 }
@@ -145,15 +145,17 @@ async function downloadFile(link) {
         let r = request(link);
 
         r.on('response', function (res) {
-            res.pipe(fs.createWriteStream('./src/zenerit.' + res.headers['content-type'].split('/')[1]));
-            resolve();
+            res.pipe(fs.createWriteStream('./src/zenerit.' + res.headers['content-type'].split('/')[1]), function () {
+
+                resolve();
+            });
+
         });
     })
 }
 
 async function getImageGroup() {
     let users = await DButils.getAllUsersWithSort({points: -1});
-    console.log(users);
     if (users) {
         let user1 = await cloudinary.upload_img(users[0].info.photo_max_orig),
             user2 = await cloudinary.upload_img(users[1].info.photo_max_orig),

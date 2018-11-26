@@ -31,7 +31,7 @@ class Methods {
     }
 
     async changePhotoGroup(image, group_id) {
-        let link = await this.api.call("photos.getOwnerCoverPhotoUploadServer", {group_id});
+        let link = await this.api.call("photos.getOwnerCoverPhotoUploadServer", {group_id, crop_y2: 400, crop_x2: 1590});
 
         let serverResponse = await new Promise((resolve, reject) => {
             request.post({

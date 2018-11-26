@@ -5,7 +5,7 @@
       "textArray": [
         {
           "type": "text",
-          "value": "Привет!",
+          "value": "Привет, {{first_name}}!",
           "delayTime": 500
         },
         {

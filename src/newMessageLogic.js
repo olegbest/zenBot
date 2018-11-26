@@ -95,7 +95,7 @@ class newMessage {
                             if (el.delayTime) {
                                 await wait(el.delayTime);
                             }
-
+                            el.value = el.value.replace("{{first_name}}", user.info.first_name || "");
                             if (el.type === "text") {
                                 await this.sendM.sendText(user, el.value);
                             } else if (el.type === "button") {
@@ -115,6 +115,7 @@ class newMessage {
                             if (el['nextState']) {
                                 await DButils.updateUser(user.id, {state: nextState});
                             }
+
                             await DButils.updateUser(user.id, {lastMessageDate: new Date()});
                             await DButils.newMessage({
                                 user_id: user.id,

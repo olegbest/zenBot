@@ -135,6 +135,10 @@ class newMessage {
                                 text: elText,
                             });
                         }
+                        if (arrT.autoState) {
+                            await this.sendMessage(msg, user, user.state, day, undefined);
+                            return
+                        }
                     }
                 }
             }
@@ -181,12 +185,13 @@ class newMessage {
         if (states[user.day]) {
             let s = states[user.day][state];
             if (s) {
-                await this.sendM.sendText(user, s.value);
+                let text = s.value[Math.floor(Math.random() * s.value.length)];
+                await this.sendM.sendText(user, text);
                 await DButils.updateUser(user.id, {state});
                 await DButils.newMessage({
                     user_id: user.id,
                     isBot: true,
-                    text: s.value,
+                    text: text,
                 })
             }
         }

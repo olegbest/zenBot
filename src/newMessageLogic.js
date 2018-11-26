@@ -123,6 +123,9 @@ class newMessage {
                                     }])
                                 });
                                 await this.sendM.sendButton(user, elText, buttons);
+                            } else if (el.type === "photo") {
+                                let photo = await this.methods.getPhotoMessage(el.photo);
+                                console.log(photo);
                             }
                             if (el['nextState']) {
                                 await DButils.updateUser(user.id, {state: nextState});

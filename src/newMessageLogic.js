@@ -51,7 +51,19 @@ class newMessage {
                 return;
             }
         }
-        if (state !== "typing") {
+        if (state === "point-state-check") {
+            await this.sendMessage(msg, user, "point-state", day, undefined);
+            let next = "";
+            if (user.points < 45) {
+                next = "point-state-1"
+            } else if (user.points >= 45 && user.points < 75) {
+                next = "point-state-2"
+            } else if (user.points >= 75 && user.points < 100) {
+                next = "point-state-3"
+            }
+            await this.sendMessage(msg, user, next, day, undefined);
+
+        } else if (state !== "typing") {
             await DButils.updateUser(user.id, {state: "typing"});
             if (states[day]) {
                 let dayData = states[day];

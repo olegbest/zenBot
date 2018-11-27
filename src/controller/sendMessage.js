@@ -12,6 +12,7 @@ class SendMessage {
         if (countMessage) {
             while (countMessage.count > 25) {
                 await wait(500);
+                countMessage = await DButils.findCountMessage(countMessage.id);
             }
         }
         let userID = user.id;
@@ -30,6 +31,7 @@ class SendMessage {
         if (countMessage) {
             while (countMessage.count > 25) {
                 await wait(500);
+                countMessage = await DButils.findCountMessage(countMessage.id);
             }
         }
         let userID = user.id;
@@ -56,6 +58,7 @@ class SendMessage {
         if (countMessage) {
             while (countMessage.count > 25) {
                 await wait(500);
+                countMessage = await DButils.findCountMessage(countMessage.id);
             }
         }
         let userID = user.id;

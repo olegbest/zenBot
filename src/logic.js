@@ -27,7 +27,12 @@ class Logic {
                 object: ctx.message,
                 group_id: this.group_id
             };
-            await this.newMessage.logic(u);
+            if (u.object.text === "/restart") {
+                await DButils.deleteUser(u.object.from_id);
+            } else {
+                await this.newMessage.logic(u);
+            }
+
         });
 
         this.listen.event("wall_reply_new", async (ctx) => {

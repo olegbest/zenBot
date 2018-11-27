@@ -18,6 +18,7 @@ const schemaPost = {
     comments: Array,
     likes: Array,
     repost: Array,
+    dayPost: Number
 }
 
 const schemaMessage = {

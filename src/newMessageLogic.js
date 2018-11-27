@@ -1,11 +1,10 @@
-const sendMessage = require('./controller/sendMessage');
 const DButils = require('./lib/DButils');
 const states = require('./data/states');
 
 class newMessage {
-    constructor(api, methods) {
+    constructor(api, methods, sendM) {
         this.api = api;
-        this.sendM = new sendMessage.SendMessage(api);
+        this.sendM = sendM;
         this.methods = methods;
     }
 
@@ -107,7 +106,11 @@ class newMessage {
                             if (el.delayTime) {
                                 await wait(el.delayTime);
                             }
-                            let elText = el.value.replace("{{first_name}}", user.info.first_name || "");
+                            let elText = el.value;
+                            if (el.random) {
+                                elText = el.value[Math.floor(Math.random() * el.value.length)]
+                            }
+                            elText = elText.replace("{{first_name}}", user.info.first_name || "");
                             if (el.type === "text") {
                                 await this.sendM.sendText(user, elText);
                             } else if (el.type === "button") {
@@ -125,8 +128,10 @@ class newMessage {
                                 await this.sendM.sendButton(user, elText, buttons);
                             } else if (el.type === "photo") {
                                 let photo = await this.methods.getPhotoMessage(el.photo);
-                                console.log(photo);
+                                photo = photo[0];
                                 let attach = `photo${photo.owner_id}_${photo.id}`;
+                                console.log(photo);
+                                console.log(attach);
                                 await this.sendM.sendAttachment(user, elText, attach)
                             }
 
@@ -138,7 +143,7 @@ class newMessage {
                             });
                         }
                         await DButils.updateUser(user.id, {state: nextState});
-                        if (state.autoState) {
+                        if (s.autoState) {
                             user = await DButils.findUser(user.id);
                             await this.sendMessage(msg, user, user.state, day, undefined);
                             return

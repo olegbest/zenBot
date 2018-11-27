@@ -10,8 +10,14 @@ const apiApp = new VKApi({
     logger: new ConsoleLogger()
 });
 
+const apiUser = new VKApi({
+    token: cfg.token_user,
+    logger: new ConsoleLogger()
+});
+
+
 const VkBot = require('node-vk-bot-api');
 
 const bot = new VkBot(cfg.token);
 
-module.exports = {api, BotsLongPollUpdatesProvider, apiApp, group_id: cfg.id_group, listen: bot};
+module.exports = {api, BotsLongPollUpdatesProvider, apiApp, group_id: cfg.id_group, listen: bot, apiUser};

@@ -1,48 +1,81 @@
-const methods = require('./metods').Methods;
+const DButils = require('./../lib/DButils');
 
 
 class SendMessage {
     constructor(api) {
         this.api = api;
-        this.methods = new methods(api);
     }
 
     async sendText(user, text) {
+        let countMessage = await DButils.findCountMessage(1);
+        countMessage = await DButils.updateCountMessage(countMessage.id, {count: countMessage.count + 1});
+        if (countMessage) {
+            while (countMessage.count > 25) {
+                await wait(500);
+            }
+        }
         let userID = user.id;
-        return await this.api.call('messages.send', {
+        let res = await this.api.call('messages.send', {
             message: text,
             peer_id: userID
-        })
+        });
+        countMessage = await DButils.findCountMessage(1);
+        await DButils.updateCountMessage(countMessage.id, {count: countMessage.count - 1});
+        return res;
     }
 
-    async sendAttachment(user, text, attachments){
+    async sendAttachment(user, text, attachments) {
+        let countMessage = await DButils.findCountMessage(1);
+        countMessage = await DButils.updateCountMessage(countMessage.id, {count: countMessage.count + 1});
+        if (countMessage) {
+            while (countMessage.count > 25) {
+                await wait(500);
+            }
+        }
         let userID = user.id;
-        return await this.api.call('messages.send', {
+        let res = await this.api.call('messages.send', {
             message: text,
             peer_id: userID,
             attachment: attachments
-        })
+        });
+        countMessage = await DButils.findCountMessage(1);
+        await DButils.updateCountMessage(countMessage.id, {count: countMessage.count - 1});
+        return res;
     }
 
     async sendTyping(userID) {
-       return await this.api.call('messages.setActivity', {
+        return await this.api.call('messages.setActivity', {
             type: "typing",
             peer_id: userID
         });
     }
 
     async sendButton(user, text, buttons) {
+        let countMessage = await DButils.findCountMessage(1);
+        countMessage = await DButils.updateCountMessage(countMessage.id, {count: countMessage.count + 1});
+        if (countMessage) {
+            while (countMessage.count > 25) {
+                await wait(500);
+            }
+        }
         let userID = user.id;
-        await this.api.call('messages.send', {
+        let res = await this.api.call('messages.send', {
             message: text,
             peer_id: userID,
             keyboard: JSON.stringify({
                 one_time: true,
                 buttons: buttons
             })
-        })
+        });
+        countMessage = await DButils.findCountMessage(1);
+        await DButils.updateCountMessage(countMessage.id, {count: countMessage.count - 1});
+        return res;
     }
 
+}
+
+async function wait(ms) {
+    return await new Promise(resolve => setTimeout(resolve, ms));
 }
 
 module.exports.SendMessage = SendMessage;

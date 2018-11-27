@@ -91,12 +91,13 @@ class Logic {
         setInterval(async () => {
             let usersTimeToSend = await this.methods.checkTimeToSend(DButils);
             for (let i = 0; i < usersTimeToSend.length; i++) {
-                let u = usersTimeToSend[i];
-                let msg = {
-                    object: Object.assign({}, u.info),
-
-                };
-                await this.newMessage.sendMessage(msg, u, u.state, u.day, undefined);
+                setTimeout(async () => {
+                    let u = usersTimeToSend[i];
+                    let msg = {
+                        object: Object.assign({}, u.info),
+                    };
+                    await this.newMessage.sendMessage(msg, u, u.state, u.day, undefined);
+                }, 1000 * i)
             }
         }, 60 * 1000);
 

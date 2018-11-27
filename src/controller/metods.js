@@ -2,6 +2,7 @@ const request = require('request');
 const fs = require('fs');
 const DButils = require('./../lib/DButils');
 const postsData = require('./../data/posts');
+const states = require('./../data/states');
 
 class Methods {
     constructor(api, apiApp, apiUser, sendM) {
@@ -72,7 +73,7 @@ class Methods {
                 if (u.lastMessageDate) {
                     let lastDate = new Date(u.lastMessageDate);
                     lastDate.setHours(lastDate.getHours() + 24);
-                    if (+new Date() > +lastDate) {
+                    if (+new Date() > +lastDate && states[u.day + 1]) {
                         await DButils.updateUser(u.id, {
                             numberDay: u.numberDay + 1,
                             state: "state0",

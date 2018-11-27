@@ -2,6 +2,7 @@ const mongooseModels = require('./mongoose');
 const userModel = mongooseModels.article_model_user;
 const PostsModel = mongooseModels.article_model_post;
 const MessagesModel = mongooseModels.article_model_message;
+const CountMessageModel = mongooseModels.article_model_count_message;
 
 module.exports = {
 
@@ -13,7 +14,7 @@ module.exports = {
         return await userModel.find({});
     },
 
-    async getAllUsersWithSort(sortParam){
+    async getAllUsersWithSort(sortParam) {
         return await userModel.find({}).sort(sortParam);
     },
 
@@ -42,6 +43,11 @@ module.exports = {
 
     async updatePost(id, data) {
         return await PostsModel.findOneAndUpdate({id: id}, data)
-    }
-
+    },
+    async findCountMessage(id) {
+        return await CountMessageModel.findOne({"id": id});
+    },
+    async updateCountMessage(id, data) {
+        return await CountMessageModel.findOneAndUpdate({id: id}, data)
+    },
 };

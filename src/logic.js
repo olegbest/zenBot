@@ -29,9 +29,9 @@ class Logic {
             };
             if (u.object.text === "/restart") {
                 await DButils.deleteUser(u.object.from_id);
-            } else {
-                await this.newMessage.logic(u);
             }
+            await this.newMessage.logic(u);
+
 
         });
 

@@ -57,7 +57,7 @@ class newMessage {
                 next = "point-state-1"
             } else if (user.points >= 45 && user.points < 75) {
                 next = "point-state-2"
-            } else if (user.points >= 75 && user.points < 101) {
+            } else if (user.points >= 75) {
                 next = "point-state-3"
             }
             await this.sendMessage(msg, user, next, day, undefined);

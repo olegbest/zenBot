@@ -129,9 +129,6 @@ class newMessage {
                                 let attach = `photo${photo.owner_id}_${photo.id}`;
                                 await this.sendM.sendAttachment(user, elText, attach)
                             }
-                            if (el['nextState']) {
-                                await DButils.updateUser(user.id, {state: nextState});
-                            }
 
                             await DButils.updateUser(user.id, {lastMessageDate: new Date()});
                             await DButils.newMessage({
@@ -140,6 +137,7 @@ class newMessage {
                                 text: elText,
                             });
                         }
+                        await DButils.updateUser(user.id, {state: nextState});
                         if (state.autoState) {
                             user = await DButils.findUser(user.id);
                             await this.sendMessage(msg, user, user.state, day, undefined);

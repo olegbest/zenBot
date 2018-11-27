@@ -446,7 +446,7 @@
           "type": "photo",
           "value": "Держи совет дня📎",
           "nextState": "state8",
-          "photo": "./src/images/day1.jpg",
+          "photo": "/images/day1.jpg",
           "delayTime": 1000
         },
         {

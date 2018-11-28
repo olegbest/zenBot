@@ -46,7 +46,7 @@ class Methods {
         let serverResponse = await new Promise((resolve, reject) => {
             request.post({
                 url: link.upload_url,
-                formData: {photo: fs.createReadStream(image)}
+                formData: {photo: fs.createReadStream(__dirname + "/../" + image)}
             }, function (err, httpResponse, body) {
                 if (err) {
                     return console.error('upload failed:', err);

@@ -111,6 +111,7 @@ class newMessage {
                                 elText = el.value[Math.floor(Math.random() * el.value.length)]
                             }
                             elText = elText.replace("{{first_name}}", user.info.first_name || "");
+                            elText = elText.replace("{{points}}", user.points || 0);
                             if (el.type === "text") {
                                 await this.sendM.sendText(user, elText);
                             } else if (el.type === "button") {
@@ -130,8 +131,6 @@ class newMessage {
                                 let photo = await this.methods.getPhotoMessage(__dirname + el.photo);
                                 photo = photo[0];
                                 let attach = `photo${photo.owner_id}_${photo.id}`;
-                                console.log(photo);
-                                console.log(attach);
                                 await this.sendM.sendAttachment(user, elText, attach)
                             }
 

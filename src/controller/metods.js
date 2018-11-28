@@ -37,16 +37,20 @@ class Methods {
     }
 
     async changePhotoGroup(image, group_id) {
+        image = __dirname + "/.." + image;
+        console.log(image);
         let link = await this.api.call("photos.getOwnerCoverPhotoUploadServer", {
             group_id,
             crop_y2: 400,
             crop_x2: 1590
         });
 
+        console.log(link);
+
         let serverResponse = await new Promise((resolve, reject) => {
             request.post({
                 url: link.upload_url,
-                formData: {photo: fs.createReadStream(__dirname + "/.." + image)}
+                formData: {photo: fs.createReadStream(image)}
             }, function (err, httpResponse, body) {
                 if (err) {
                     return console.error('upload failed:', err);

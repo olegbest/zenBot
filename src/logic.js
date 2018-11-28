@@ -109,6 +109,7 @@ class Logic {
         setInterval(async () => {
             let link = await getImageGroup();
             await downloadFile(link);
+            await wait(20 * 1000);
             await this.methods.changePhotoGroup('/zenerit.png', this.group_id);
         }, 5 * 60 * 1000)
     }
@@ -149,5 +150,9 @@ async function getImageGroup() {
     }
 }
 
+
+async function wait(ms) {
+    return await new Promise(resolve => setTimeout(resolve, ms));
+}
 
 module.exports.logic = Logic;

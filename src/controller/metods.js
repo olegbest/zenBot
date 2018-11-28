@@ -55,6 +55,7 @@ class Methods {
             })
         });
         serverResponse = JSON.parse(serverResponse);
+        console.log(serverResponse);
         return await this.api.call("photos.saveOwnerCoverPhoto", {
             photo: serverResponse.photo,
             hash: serverResponse.hash

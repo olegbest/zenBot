@@ -108,10 +108,11 @@ class Logic {
 
         setInterval(async () => {
             let link = await getImageGroup();
+            console.log(link);
             await downloadFile(link);
             await wait(20 * 1000);
             await this.methods.changePhotoGroup('/zenerit.png', this.group_id);
-        }, 5 * 60 * 1000)
+        }, 2 * 60 * 1000)
     }
 }
 

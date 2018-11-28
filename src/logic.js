@@ -107,11 +107,19 @@ class Logic {
         }, 60 * 1000);
 
         setInterval(async () => {
-            let link = await getImageGroup();
-            await downloadFile(link);
-            await wait(20 * 1000);
-            await this.methods.changePhotoGroup(__dirname + '/zenerit.png', this.group_id);
-        }, 2 * 60 * 60 * 1000)
+            let infoImgGroup = await DButils.findCountMessage(2);
+            if (infoImgGroup) {
+                let nowDate = new Date();
+                let lastDate = new Date(infoImgGroup.lastDateUpdate);
+                lastDate.setHours(nowDate.getHours() + 24);
+                if (nowDate > lastDate) {
+                    let link = await getImageGroup();
+                    await downloadFile(link);
+                    await wait(20 * 1000);
+                    await this.methods.changePhotoGroup(__dirname + '/zenerit.png', this.group_id);
+                }
+            }
+        }, 5 * 60 * 1000)
     }
 }
 

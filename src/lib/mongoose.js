@@ -31,7 +31,9 @@ const schemaMessage = {
 
 const countMessage = {
     id: {type: Number, required: true},
-    count: {type: Number, required: true}
+    count: {type: Number, required: true},
+    lastDateUpdate: {type: String, required: false},
+    info: String
 };
 
 const vk_bot = mongoose.createConnection(`mongodb://${cfg.user}:${cfg.pass}@81.90.180.52:27017/zenerit_vk?authSource=admin&w=1`, {useNewUrlParser: true});

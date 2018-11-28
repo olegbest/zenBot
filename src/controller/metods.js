@@ -37,7 +37,7 @@ class Methods {
     }
 
     async changePhotoGroup(image, group_id) {
-        image = __dirname + "/.." + image;
+
         console.log(image);
         let link = await this.api.call("photos.getOwnerCoverPhotoUploadServer", {
             group_id,

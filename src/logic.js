@@ -111,7 +111,7 @@ class Logic {
             console.log(link);
             await downloadFile(link);
             await wait(20 * 1000);
-            await this.methods.changePhotoGroup('/zenerit.png', this.group_id);
+            await this.methods.changePhotoGroup(__dirname+'/zenerit.png', this.group_id);
         }, 2 * 60 * 1000)
     }
 }
@@ -123,10 +123,8 @@ async function downloadFile(link) {
         let r = request(link);
 
         r.on('response', function (res) {
-            res.pipe(fs.createWriteStream(__dirname + '/zenerit.' + res.headers['content-type'].split('/')[1]), function () {
-
-                resolve();
-            });
+            res.pipe(fs.createWriteStream(__dirname + '/zenerit.' + res.headers['content-type'].split('/')[1]));
+            resolve();
 
         });
     })

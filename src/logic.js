@@ -121,7 +121,7 @@ async function downloadFile(link) {
         let r = request(link);
 
         r.on('response', function (res) {
-            res.pipe(fs.createWriteStream('./src/zenerit.' + res.headers['content-type'].split('/')[1]), function () {
+            res.pipe(fs.createWriteStream(__dirname+'/src/zenerit.' + res.headers['content-type'].split('/')[1]), function () {
 
                 resolve();
             });

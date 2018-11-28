@@ -128,7 +128,10 @@ class Methods {
                                     let likesPost = post.likes;
                                     likesPost.push(user.id);
                                     await DButils.updatePost(post.id, {likes: likesPost});
-                                    await DButils.updateUser(user.id, {points: user.points + 10});
+                                    await DButils.updateUser(user.id, {
+                                        points: user.points + 10,
+                                        pointsForDay: (user.pointsForDay || 0) + 10
+                                    });
                                     let text = postsData.doLike[Math.floor(Math.random() * postsData.doLike.length)];
                                     await this.sendM.sendText(user, text);
                                 }
@@ -147,7 +150,10 @@ class Methods {
                                     let repostPost = post.repost;
                                     repostPost.push(user.id);
                                     await DButils.updatePost(post.id, {repost: repostPost});
-                                    await DButils.updateUser(user.id, {points: user.points + 10});
+                                    await DButils.updateUser(user.id, {
+                                        points: user.points + 10,
+                                        pointsForDay: (user.pointsForDay || 0) + 10
+                                    });
                                     let text = postsData.doRepost[Math.floor(Math.random() * postsData.doRepost.length)];
                                     await this.sendM.sendText(user, text);
                                 }
@@ -171,7 +177,10 @@ class Methods {
                         let data = {};
                         data = {comments: arrWithComments};
                         await DButils.updatePost(post.id, data);
-                        await DButils.updateUser(user.id, {points: user.points + 10});
+                        await DButils.updateUser(user.id, {
+                            points: user.points + 10,
+                            pointsForDay: (user.pointsForDay || 0) + 10
+                        });
                         let text = postsData.doComment[Math.floor(Math.random() * postsData.doComment.length)];
                         await this.sendM.sendText(user, text);
                     }

@@ -10,6 +10,7 @@ const schemaUser = {
     day: {type: String, default: "day1"},
     numberDay: {type: Number, required: false},
     points: {type: Number, required: false},
+    pointsForDay: {type: Number, required: false},
     lastMessageDate: {type: String, required: false}
 };
 

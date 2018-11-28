@@ -39,7 +39,7 @@ class newMessage {
 
         if (answerButton) {
             if (answerButton["point"]) {
-                user = await DButils.updateUser(user.id, {points: user.points + answerButton["point"]});
+                user = await DButils.updateUser(user.id, {points: user.points + answerButton["point"], pointsForDay: (user.pointsForDay||0)+answerButton["point"]});
             }
 
             if (answerButton["nextS"]) {
@@ -53,11 +53,11 @@ class newMessage {
         if (state === "point-state-check") {
             await this.sendMessage(msg, user, "point-state", day, undefined);
             let next = "";
-            if (user.points < 45) {
+            if (user.pointsForDay < 45) {
                 next = "point-state-1"
-            } else if (user.points >= 45 && user.points < 75) {
+            } else if (user.pointsForDay >= 45 && user.pointsForDay < 75) {
                 next = "point-state-2"
-            } else if (user.points >= 75) {
+            } else if (user.pointsForDay >= 75) {
                 next = "point-state-3"
             }
             await this.sendMessage(msg, user, next, day, undefined);
@@ -111,7 +111,7 @@ class newMessage {
                                 elText = el.value[Math.floor(Math.random() * el.value.length)]
                             }
                             elText = elText.replace("{{first_name}}", user.info.first_name || "");
-                            elText = elText.replace("{{points}}", user.points || 0);
+                            elText = elText.replace("{{points}}", user.pointsForDay || 0);
                             if (el.type === "text") {
                                 await this.sendM.sendText(user, elText);
                             } else if (el.type === "button") {
@@ -223,6 +223,7 @@ async function getUser(msg, api) {
             state: "state0",
             day: "day1",
             points: 0,
+            pointsForDay: 0,
             numberDay: 1
         };
         user = await DButils.newUser(newUser)

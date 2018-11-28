@@ -39,7 +39,10 @@ class newMessage {
 
         if (answerButton) {
             if (answerButton["point"]) {
-                user = await DButils.updateUser(user.id, {points: user.points + answerButton["point"], pointsForDay: (user.pointsForDay||0)+answerButton["point"]});
+                user = await DButils.updateUser(user.id, {
+                    points: user.points + answerButton["point"],
+                    pointsForDay: (user.pointsForDay || 0) + answerButton["point"]
+                });
             }
 
             if (answerButton["nextS"]) {
@@ -112,6 +115,12 @@ class newMessage {
                             }
                             elText = elText.replace("{{first_name}}", user.info.first_name || "");
                             elText = elText.replace("{{points}}", user.pointsForDay || 0);
+                            if (el.points) {
+                                user = await DButils.updateUser(user.id, {
+                                    points: user.points + el.points,
+                                    pointsForDay: (user.pointsForDay || 0) + el.points
+                                });
+                            }
                             if (el.type === "text") {
                                 await this.sendM.sendText(user, elText);
                             } else if (el.type === "button") {
@@ -136,12 +145,14 @@ class newMessage {
                                 await this.sendM.sendAttachment(user, "", elText)
                             }
 
-                            await DButils.updateUser(user.id, {lastMessageDate: new Date()});
-                            await DButils.newMessage({
-                                user_id: user.id,
-                                isBot: true,
-                                text: elText,
-                            });
+                            if (state !== "wait-next-day-1") {
+                                await DButils.updateUser(user.id, {lastMessageDate: new Date()});
+                                await DButils.newMessage({
+                                    user_id: user.id,
+                                    isBot: true,
+                                    text: elText,
+                                });
+                            }
                         }
                         await DButils.updateUser(user.id, {state: nextState});
                         if (s.autoState) {
@@ -221,10 +232,10 @@ async function getUser(msg, api) {
             id: userID,
             info: userInfo[0],
             state: "state0",
-            day: "day1",
+            day: "day2",
             points: 0,
             pointsForDay: 0,
-            numberDay: 1
+            numberDay: 2
         };
         user = await DButils.newUser(newUser)
     }

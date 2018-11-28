@@ -70,7 +70,7 @@ class Methods {
                 if (u.lastMessageDate) {
                     let lastDate = new Date(u.lastMessageDate);
                     lastDate.setHours(lastDate.getHours() + 24);
-                    if (+new Date() > +lastDate && states[u.day + 1]) {
+                    if (+new Date() > +lastDate && states[`day${u.numberDay + 1}`]) {
                         await DButils.updateUser(u.id, {
                             numberDay: u.numberDay + 1,
                             state: "state0",

@@ -279,7 +279,7 @@
             {
               "val": "Готова!",
               "payload": {
-                "point": 10,
+                "point": 0,
                 "nextS": "state5"
               }
             }
@@ -299,7 +299,7 @@
             {
               "val": "Да!",
               "payload": {
-                "point": 10,
+                "point": 0,
                 "nextS": "state5"
               }
             }
@@ -319,7 +319,7 @@
             {
               "val": "Конечно!",
               "payload": {
-                "point": 10,
+                "point": 0,
                 "nextS": "state5"
               }
             }

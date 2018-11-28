@@ -32,8 +32,6 @@ class Methods {
             server: serverResponse.server,
             hash: serverResponse.hash
         });
-
-
     }
 
     async changePhotoGroup(image, group_id) {

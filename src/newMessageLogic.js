@@ -132,6 +132,8 @@ class newMessage {
                                 photo = photo[0];
                                 let attach = `photo${photo.owner_id}_${photo.id}`;
                                 await this.sendM.sendAttachment(user, elText, attach)
+                            } else if (el.type === "doc") {
+                                await this.sendM.sendAttachment(user, "", elText)
                             }
 
                             await DButils.updateUser(user.id, {lastMessageDate: new Date()});

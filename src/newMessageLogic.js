@@ -232,10 +232,10 @@ async function getUser(msg, api) {
             id: userID,
             info: userInfo[0],
             state: "state0",
-            day: "day2",
+            day: "day1",
             points: 0,
             pointsForDay: 0,
-            numberDay: 2
+            numberDay: 1
         };
         user = await DButils.newUser(newUser)
     }

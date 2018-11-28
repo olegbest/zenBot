@@ -37,16 +37,11 @@ class Methods {
     }
 
     async changePhotoGroup(image, group_id) {
-
-        console.log(image);
         let link = await this.api.call("photos.getOwnerCoverPhotoUploadServer", {
             group_id,
             crop_y2: 400,
             crop_x2: 1590
         });
-
-        console.log(link);
-
         let serverResponse = await new Promise((resolve, reject) => {
             request.post({
                 url: link.upload_url,
@@ -59,7 +54,6 @@ class Methods {
             })
         });
         serverResponse = JSON.parse(serverResponse);
-        console.log(serverResponse);
         return await this.api.call("photos.saveOwnerCoverPhoto", {
             photo: serverResponse.photo,
             hash: serverResponse.hash

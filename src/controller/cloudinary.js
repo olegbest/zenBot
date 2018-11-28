@@ -33,9 +33,9 @@ async function findFaceAndUploadImg(idImage) {
 }
 
 async function getBackGround(user1, user2, user3) {
-    let img = await cloudinary.image("zinerit.png", {
+    let img = await cloudinary.image("zenirit.png", {
         transformation: [
-            {underlay: user1.img, x: -680, y: 54},
+            {underlay: user1.img, x: -515, y: 54},
             {
                 overlay: {
                     font_family: "Arial",
@@ -44,10 +44,10 @@ async function getBackGround(user1, user2, user3) {
                     color: "#242424",
                     text_align: "center"
                 },
-                x: -680,
+                x: -515,
                 y: 145
             },
-            {underlay: user2.img, x: -515, y: 54},
+            {underlay: user2.img, x: -370, y: 54},
             {
                 overlay: {
                     font_family: "Arial",
@@ -56,10 +56,10 @@ async function getBackGround(user1, user2, user3) {
                     color: "#242424",
                     text_align: "center"
                 },
-                x: -515,
+                x: -370,
                 y: 145
             },
-            {underlay: user3.img, x: -370, y: 54},
+            {underlay: user3.img, x: -210, y: 54},
             {
                 overlay: {
                     font_family: "Arial",
@@ -68,7 +68,7 @@ async function getBackGround(user1, user2, user3) {
                     color: "#242424",
                     text_align: "center"
                 },
-                x: -370,
+                x: -210,
                 y: 145
             },
         ]

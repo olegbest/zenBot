@@ -90,11 +90,31 @@ class Methods {
     }
 
     async getReposts(idGroup, idPost) {
-        return await this.apiUser.call("wall.getReposts", {owner_id: -idGroup, post_id: idPost})
+        try {
+            return await this.apiUser.call("wall.getReposts", {owner_id: -idGroup, post_id: idPost})
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     async getLikes(group_id, post_id, type) {
-        return await this.apiApp.call("likes.getList", {owner_id: -group_id, type: type || "post", item_id: post_id});
+        try {
+            return await this.apiApp.call("likes.getList", {
+                owner_id: -group_id,
+                type: type || "post",
+                item_id: post_id
+            });
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    async getCommentsVideo(group_id, post_id) {
+        try {
+            return await this.apiUser.call("video.getComments", {owner_id: -group_id, video_id: post_id})
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     async updateLikeRepostAndComment(id_group) {
@@ -104,6 +124,11 @@ class Methods {
                 let postData = arrPosts[i];
                 let likes = await this.getLikes(id_group, postData.id, postData.type);
                 let reposts = await this.getReposts(id_group, postData.id);
+                let commentsVideo;
+                if (postData.type === "video") {
+                    commentsVideo = await this.getCommentsVideo(id_group, postData.id);
+                    console.log(commentsVideo);
+                }
                 let post = await DButils.findPost(postData.id);
                 if (!post) {
                     post = await DButils.newPost({
@@ -156,6 +181,29 @@ class Methods {
                                         pointsForDay: (user.pointsForDay || 0) + 10
                                     });
                                     let text = postsData.doRepost[Math.floor(Math.random() * postsData.doRepost.length)];
+                                    await this.sendM.sendText(user, text);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (commentsVideo) {
+                    for (let j = 0; j < commentsVideo.items.length; j++) {
+                        let comment = commentsVideo.items[j];
+                        // console.log(repost);
+                        let user = await DButils.findUser(comment.from_id);
+                        if (user) {
+                            if (user.numberDay === post.dayPost) {
+                                if (post.comments.indexOf(user.id) === -1) {
+                                    let commentsPost = post.comments;
+                                    commentsPost.push(user.id);
+                                    await DButils.updatePost(post.id, {comments: commentsPost});
+                                    await DButils.updateUser(user.id, {
+                                        points: user.points + 10,
+                                        pointsForDay: (user.pointsForDay || 0) + 10
+                                    });
+                                    let text = postsData.doComment[Math.floor(Math.random() * postsData.doComment.length)];
                                     await this.sendM.sendText(user, text);
                                 }
                             }

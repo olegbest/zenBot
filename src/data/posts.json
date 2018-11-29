@@ -9,6 +9,16 @@
       "id": 456239446,
       "day": 1,
       "type": "video"
+    },
+    {
+      "id": 456242429,
+      "day": 2,
+      "type": "video"
+    },
+    {
+      "id": 331601,
+      "day": 2,
+      "type": "post"
     }
   ],
   "doLike": [

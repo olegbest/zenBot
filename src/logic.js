@@ -117,6 +117,7 @@ class Logic {
                     await downloadFile(link);
                     await wait(20 * 1000);
                     await this.methods.changePhotoGroup(__dirname + '/zenerit.png', this.group_id);
+                    await DButils.updateCountMessage(2, {lastDateUpdate: new Date()})
                 }
             }
         }, 5 * 60 * 1000)

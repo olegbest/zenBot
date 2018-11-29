@@ -139,7 +139,7 @@ async function downloadFile(link) {
 }
 
 async function getImageGroup() {
-    let users = await DButils.getAllUsersWithSort({points: -1});
+    let users = await DButils.getAllUsersWithSort({pointsForDay: -1});
     if (users) {
         let user1 = await cloudinary.upload_img(users[0].info.photo_max_orig),
             user2 = await cloudinary.upload_img(users[1].info.photo_max_orig),

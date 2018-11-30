@@ -5,6 +5,7 @@ const request = require('request');
 const fs = require('fs');
 const cloudinary = require('./controller/cloudinary');
 const sendMessage = require('./controller/sendMessage');
+const states = require('./data/states');
 
 class Logic {
     constructor(bot) {
@@ -120,7 +121,39 @@ class Logic {
                     await DButils.updateCountMessage(2, {lastDateUpdate: new Date()})
                 }
             }
-        }, 5 * 60 * 1000)
+        }, 5 * 60 * 1000);
+
+        setInterval(async () => { //проверка длительных сообщений
+            let users = await DButils.getAllUsers();
+
+            if (users) {
+                for (let i = 0; i < users.length; i++) {
+                    let u = users[i];
+                    let stateData = states[u.day];
+                    if (stateData) {
+                        stateData = states[u.day][u.oldState];
+                        if (stateData) {
+                            if (u.lastMessageDate && stateData.isDbTime && u.state === "typing") {
+                                console.log("Этап 3");
+                                let lastDate = new Date(u.lastMessageDate);
+                                lastDate.setMilliseconds(lastDate.getMilliseconds() + ((stateData.time || 1000) + 5000));
+                                console.log(lastDate);
+                                if (+new Date() > +lastDate) {
+                                    let msg = {
+                                        object: {
+                                            from_id: u.id
+                                        }
+                                    };
+                                    console.log("Этап 4");
+                                    await DButils.updateUser(u.id, {lastMessageDate: new Date()});
+                                    await this.newMessage.sendMessage(msg, u, u.oldState, u.day, undefined);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }, 60 * 1000)
     }
 }
 

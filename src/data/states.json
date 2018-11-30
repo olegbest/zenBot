@@ -1589,12 +1589,6 @@
           "delayTime": 2000
         },
         {
-          "type": "text",
-          "value": "ЛОНГРИД",
-          "nextState": "state8",
-          "delayTime": 2000
-        },
-        {
           "type": "button",
           "value": "{{first_name}}, мне хотелось бы узнать: какой у тебя тип кожи?",
           "delayTime": 30000,

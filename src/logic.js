@@ -127,7 +127,7 @@ class Logic {
                             if (u.lastMessageDate && stateData.isDbTime && u.state === "typing") {
                                 console.log("Этап 3");
                                 let lastDate = new Date(u.lastMessageDate);
-                                lastDate.setMilliseconds(lastDate.getMilliseconds() + ((stateData.time || 240000) + 15000));
+                                lastDate.setMilliseconds(lastDate.getMilliseconds() + ((stateData.time || 240000) + 120000));
                                 console.log(lastDate);
                                 if (+new Date() > +lastDate) {
                                     let msg = {

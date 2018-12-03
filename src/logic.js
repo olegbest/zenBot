@@ -94,9 +94,9 @@ class Logic {
             await this.methods.updateLikeRepostAndComment(this.group_id);
         }, 60 * 1000);
 
-        setTimeout(async () => {
+        setInterval(async () => {
             await sendNextDay(this.methods, this.newMessage)
-        }, 60 * 1000);
+        }, 5 * 60 * 1000);
 
         setInterval(async () => {
             let infoImgGroup = await DButils.findCountMessage(2);
@@ -220,11 +220,6 @@ async function sendNextDay(methods, newMessage) {
             time += 1000;
         }, 1000 * (i + 1))
     }
-    await new Promise((resolve, reject) => {
-        setTimeout(async () => {
-            resolve(sendNextDay(methods, newMessage))
-        }, time)
-    })
 
 }
 

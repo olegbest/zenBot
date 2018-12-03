@@ -36,7 +36,8 @@ const countMessage = {
     info: String
 };
 
-const vk_bot = mongoose.createConnection(`mongodb://${cfg.user}:${cfg.pass}@81.90.180.52:27017/zenerit_vk?authSource=admin&w=1`, {useNewUrlParser: true});
+// const vk_bot = mongoose.createConnection(`mongodb://${cfg.user}:${cfg.pass}@81.90.180.52:27017/zenerit_vk?authSource=admin&w=1`, {useNewUrlParser: true});
+const vk_bot = mongoose.createConnection(`mongodb://localhost/zenerit_vk?authSource=admin&w=1`, {useNewUrlParser: true});
 
 const schema_user_bot = new mongoose.Schema(schemaUser);
 const schema_user_post = new mongoose.Schema(schemaPost);

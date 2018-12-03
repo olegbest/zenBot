@@ -127,7 +127,7 @@ class Logic {
                             if (u.lastMessageDate && stateData.isDbTime && u.state === "typing") {
                                 console.log("Этап 3");
                                 let lastDate = new Date(u.lastMessageDate);
-                                lastDate.setMilliseconds(lastDate.getMilliseconds() + ((stateData.time || 1000) + 5000));
+                                lastDate.setMilliseconds(lastDate.getMilliseconds() + ((stateData.time || 240000) + 15000));
                                 console.log(lastDate);
                                 if (+new Date() > +lastDate) {
                                     let msg = {
@@ -144,7 +144,7 @@ class Logic {
                     }
                 }
             }
-        }, 60 * 1000);
+        }, 3 * 60 * 1000);
 
         setInterval(async () => {
             let countMessage = await DButils.findCountMessage(1);
@@ -200,7 +200,11 @@ async function wait(ms) {
 async function sendNextDay(methods, newMessage) {
     let usersTimeToSend = await methods.checkTimeToSend(DButils);
     let time = 70000;
-    for (let i = 0; i < usersTimeToSend.length; i++) {
+    let cycleLengh = 20;
+    if (usersTimeToSend.length < 25) {
+        cycleLengh = usersTimeToSend.length;
+    }
+    for (let i = 0; i < cycleLengh; i++) {
         setTimeout(async () => {
             let u = usersTimeToSend[i];
             let msg = {

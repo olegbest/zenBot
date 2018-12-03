@@ -71,15 +71,6 @@ class Methods {
                     let lastDate = new Date(u.lastMessageDate);
                     lastDate.setHours(lastDate.getHours() + 24);
                     if (+new Date() > +lastDate && states[`day${u.numberDay + 1}`]) {
-                        await DButils.updateUser(u.id, {
-                            numberDay: u.numberDay + 1,
-                            state: "state0",
-                            day: `day${u.numberDay + 1}`,
-                            lastMessageDate: new Date(),
-                            pointsForDay: 0
-                        });
-                        u = await DButils.findUser(u.id);
-
                         result.push(u);
                     }
                 }
@@ -210,6 +201,7 @@ class Methods {
                         }
                     }
                 }
+                await wait(500);
             }
         }
     }
@@ -239,6 +231,10 @@ class Methods {
     }
 }
 
+
+async function wait(ms) {
+    return await new Promise(resolve => setTimeout(resolve, ms));
+}
 
 module.exports = {
     Methods

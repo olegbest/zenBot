@@ -94,18 +94,9 @@ class Logic {
             await this.methods.updateLikeRepostAndComment(this.group_id);
         }, 60 * 1000);
 
-        setInterval(async () => {
-            let usersTimeToSend = await this.methods.checkTimeToSend(DButils);
-            for (let i = 0; i < usersTimeToSend.length; i++) {
-                setTimeout(async () => {
-                    let u = usersTimeToSend[i];
-                    let msg = {
-                        object: Object.assign({}, u.info),
-                    };
-                    await this.newMessage.sendMessage(msg, u, u.state, u.day, undefined);
-                }, 1000 * i)
-            }
-        }, 60 * 1000);
+        setTimeout(async () => {
+            await sendNextDay(this.methods, this.newMessage)
+        }, 10 * 1000);
 
         setInterval(async () => {
             let infoImgGroup = await DButils.findCountMessage(2);
@@ -153,7 +144,18 @@ class Logic {
                     }
                 }
             }
-        }, 60 * 1000)
+        }, 60 * 1000);
+
+        setInterval(async () => {
+            let countMessage = await DButils.findCountMessage(1);
+            if (countMessage.lastDateUpdate) {
+                let lastDate = new Date(countMessage.lastDateUpdate);
+                lastDate.setMilliseconds(lastDate.getMilliseconds() + 1000);
+                if (+new Date() > +lastDate) {
+                    await DButils.updateCountMessage(countMessage.id, {count: 0, lastDateUpdate: new Date()})
+                }
+            }
+        }, 1000)
     }
 }
 
@@ -193,6 +195,32 @@ async function getImageGroup() {
 
 async function wait(ms) {
     return await new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function sendNextDay(methods, newMessage) {
+    let usersTimeToSend = await methods.checkTimeToSend(DButils);
+    for (let i = 0; i < usersTimeToSend.length; i++) {
+        setTimeout(async () => {
+            let u = usersTimeToSend[i];
+            let msg = {
+                object: Object.assign({}, u.info),
+            };
+            let userState = "state0";
+            let userDay = `day${u.numberDay + 1}`;
+            u = await DButils.findUser(u.id);
+            await newMessage.sendMessage(msg, u, userState, userDay, undefined);
+            await DButils.updateUser(u.id, {
+                numberDay: u.numberDay + 1,
+                state: userState,
+                day: userDay,
+                lastMessageDate: new Date(),
+                pointsForDay: 0
+            });
+        }, 1000 * (i + 1))
+    }
+    await setTimeout(async () => {
+        await sendNextDay(methods, newMessage)
+    }, 10 * 1000)
 }
 
 module.exports.logic = Logic;

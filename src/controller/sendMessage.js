@@ -20,8 +20,8 @@ class SendMessage {
             message: text,
             peer_id: userID
         });
-        countMessage = await DButils.findCountMessage(1);
-        await DButils.updateCountMessage(countMessage.id, {count: countMessage.count - 1});
+        // countMessage = await DButils.findCountMessage(1);
+        // await DButils.updateCountMessage(countMessage.id, {count: countMessage.count - 1});
         return res;
     }
 
@@ -40,8 +40,8 @@ class SendMessage {
             peer_id: userID,
             attachment: attachments
         });
-        countMessage = await DButils.findCountMessage(1);
-        await DButils.updateCountMessage(countMessage.id, {count: countMessage.count - 1});
+        // countMessage = await DButils.findCountMessage(1);
+        // await DButils.updateCountMessage(countMessage.id, {count: countMessage.count - 1});
         return res;
     }
 
@@ -70,8 +70,8 @@ class SendMessage {
                 buttons: buttons
             })
         });
-        countMessage = await DButils.findCountMessage(1);
-        await DButils.updateCountMessage(countMessage.id, {count: countMessage.count - 1});
+        // countMessage = await DButils.findCountMessage(1);
+        // await DButils.updateCountMessage(countMessage.id, {count: countMessage.count - 1});
         return res;
     }
 

@@ -96,7 +96,7 @@ class Logic {
 
         setInterval(async () => {
             await sendNextDay(this.methods, this.newMessage)
-        }, 5 * 60 * 1000);
+        }, 60 * 1000);
 
         setInterval(async () => {
             let infoImgGroup = await DButils.findCountMessage(2);

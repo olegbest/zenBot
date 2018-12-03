@@ -63,6 +63,13 @@ class newMessage {
             } else if (user.pointsForDay >= 75) {
                 next = "point-state-3"
             }
+            if (day === "day3" || day === "day4" || day === "day5") {
+                if (user.pointsForDay < 40) {
+                    next = "point-state-1"
+                } else if (user.pointsForDay >= 40 && user.pointsForDay < 75) {
+                    next = "point-state-2"
+                }
+            }
             await this.sendMessage(msg, user, next, day, undefined);
 
         } else if (state !== "typing") {

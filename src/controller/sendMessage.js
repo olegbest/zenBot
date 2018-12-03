@@ -46,10 +46,15 @@ class SendMessage {
     }
 
     async sendTyping(userID) {
-        return await this.api.call('messages.setActivity', {
-            type: "typing",
-            peer_id: userID
-        });
+        try {
+            return await this.api.call('messages.setActivity', {
+                type: "typing",
+                peer_id: userID
+            });
+        } catch (e) {
+            console.log(e)
+        }
+
     }
 
     async sendButton(user, text, buttons) {

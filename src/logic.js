@@ -96,7 +96,7 @@ class Logic {
 
         setTimeout(async () => {
             await sendNextDay(this.methods, this.newMessage)
-        }, 10 * 1000);
+        }, 60 * 1000);
 
         setInterval(async () => {
             let infoImgGroup = await DButils.findCountMessage(2);
@@ -150,7 +150,7 @@ class Logic {
             let countMessage = await DButils.findCountMessage(1);
             if (countMessage.lastDateUpdate) {
                 let lastDate = new Date(countMessage.lastDateUpdate);
-                lastDate.setMilliseconds(lastDate.getMilliseconds() + 1000);
+                lastDate.setMilliseconds(lastDate.getMilliseconds() + 1500);
                 if (+new Date() > +lastDate) {
                     await DButils.updateCountMessage(countMessage.id, {count: 0, lastDateUpdate: new Date()})
                 }
@@ -199,6 +199,7 @@ async function wait(ms) {
 
 async function sendNextDay(methods, newMessage) {
     let usersTimeToSend = await methods.checkTimeToSend(DButils);
+    let time = 70000;
     for (let i = 0; i < usersTimeToSend.length; i++) {
         setTimeout(async () => {
             let u = usersTimeToSend[i];
@@ -216,11 +217,15 @@ async function sendNextDay(methods, newMessage) {
                 lastMessageDate: new Date(),
                 pointsForDay: 0
             });
+            time += 1000;
         }, 1000 * (i + 1))
     }
-    await setTimeout(async () => {
-        await sendNextDay(methods, newMessage)
-    }, 10 * 1000)
+    await new Promise((resolve, reject) => {
+        setTimeout(async () => {
+            resolve(sendNextDay(methods, newMessage))
+        }, time)
+    })
+
 }
 
 module.exports.logic = Logic;

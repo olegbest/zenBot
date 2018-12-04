@@ -16,10 +16,16 @@ class SendMessage {
             }
         }
         let userID = user.id;
-        let res = await this.api.call('messages.send', {
-            message: text,
-            peer_id: userID
-        });
+        let res;
+        try {
+            res = await this.api.call('messages.send', {
+                message: text,
+                peer_id: userID
+            });
+        } catch (e) {
+            console.log(e)
+        }
+
         // countMessage = await DButils.findCountMessage(1);
         // await DButils.updateCountMessage(countMessage.id, {count: countMessage.count - 1});
         return res;
@@ -35,11 +41,18 @@ class SendMessage {
             }
         }
         let userID = user.id;
-        let res = await this.api.call('messages.send', {
-            message: text,
-            peer_id: userID,
-            attachment: attachments
-        });
+
+        let res;
+        try {
+            res = await this.api.call('messages.send', {
+                message: text,
+                peer_id: userID,
+                attachment: attachments
+            });
+        } catch (e) {
+            console.log(e)
+        }
+
         // countMessage = await DButils.findCountMessage(1);
         // await DButils.updateCountMessage(countMessage.id, {count: countMessage.count - 1});
         return res;
@@ -67,14 +80,20 @@ class SendMessage {
             }
         }
         let userID = user.id;
-        let res = await this.api.call('messages.send', {
-            message: text,
-            peer_id: userID,
-            keyboard: JSON.stringify({
-                one_time: true,
-                buttons: buttons
-            })
-        });
+        let res;
+        try {
+            res = await this.api.call('messages.send', {
+                message: text,
+                peer_id: userID,
+                keyboard: JSON.stringify({
+                    one_time: true,
+                    buttons: buttons
+                })
+            });
+        } catch (e) {
+            console.log(e);
+        }
+
         // countMessage = await DButils.findCountMessage(1);
         // await DButils.updateCountMessage(countMessage.id, {count: countMessage.count - 1});
         return res;

@@ -139,7 +139,8 @@ class newMessage {
                                             "type": "text",
                                             "payload": JSON.stringify(bt.payload),
                                             "label": bt.val
-                                        }
+                                        },
+                                        color: bt.color ||"default"
                                     }])
                                 });
                                 await this.sendM.sendButton(user, elText, buttons);
@@ -242,7 +243,8 @@ async function getUser(msg, api) {
             day: "day1",
             points: 0,
             pointsForDay: 0,
-            numberDay: 1
+            numberDay: 1,
+            joinDate: new Date()
         };
         user = await DButils.newUser(newUser)
     }

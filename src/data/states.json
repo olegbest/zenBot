@@ -2567,66 +2567,25 @@
               "val": "\uD83D\uDC78",
               "payload": {
                 "point": 10,
-                "nextS": "state4"
+                "nextS": "point-state-check"
               }
             },
             {
               "val": "\uD83D\uDC6D",
               "payload": {
                 "point": 15,
-                "nextS": "state4"
+                "nextS": "point-state-check"
               }
             },
             {
               "val": "\uD83D\uDE45",
               "payload": {
                 "point": 5,
-                "nextS": "state4"
+                "nextS": "point-state-check"
               }
             },
             {
               "val": "\uD83D\uDC6A",
-              "payload": {
-                "point": 20,
-                "nextS": "state4"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    "state4": {
-      "id": 4,
-      "textArray": [
-        {
-          "type": "button",
-          "value": "Зачастую ты больше слушаешь или говоришь?\n\n\uD83D\uDC44 - В основном слушаю, у других истории интереснее\n\uD83E\uDD10 - Больше говорю, слушать других мне не интересно\n\uD83D\uDCAC - Одинаково, все зависит от того, с кем общаюсь\n\uD83D\uDC83 - В первую очередь стараюсь слушать собеседника, но и поболтать тоже не прочь",
-          "delayTime": 500,
-          "nextState": "check-button-state1",
-          "buttons": [
-            {
-              "val": "\uD83E\uDD10",
-              "payload": {
-                "point": 10,
-                "nextS": "point-state-check"
-              }
-            },
-            {
-              "val": "\uD83D\uDC44",
-              "payload": {
-                "point": 5,
-                "nextS": "point-state-check"
-              }
-            },
-            {
-              "val": "\uD83D\uDCAC",
-              "payload": {
-                "point": 15,
-                "nextS": "point-state-check"
-              }
-            },
-            {
-              "val": "\uD83D\uDC83",
               "payload": {
                 "point": 20,
                 "nextS": "point-state-check"

@@ -15,6 +15,7 @@ class newMessage {
             user_id: user.id,
             isBot: false,
             text: msg.object.text,
+            date: new Date(),
             attachments: msg.object.attachments
         });
         await this.sendMessage(msg, user, user.state, user.day);
@@ -158,6 +159,7 @@ class newMessage {
                                 await DButils.newMessage({
                                     user_id: user.id,
                                     isBot: true,
+                                    date: new Date(),
                                     text: elText,
                                 });
                             }
@@ -200,6 +202,7 @@ class newMessage {
                             await DButils.newMessage({
                                 user_id: user.id,
                                 isBot: true,
+                                date: new Date(),
                                 text: text,
                             })
                         }
@@ -220,6 +223,7 @@ class newMessage {
                 await DButils.newMessage({
                     user_id: user.id,
                     isBot: true,
+                    date: new Date(),
                     text: text,
                 })
             }

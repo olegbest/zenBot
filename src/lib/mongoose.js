@@ -26,6 +26,7 @@ const schemaMessage = {
     user_id: {type: Number, required: true},
     isBot: {type: Boolean, required: true},
     text: String,
+    date: String,
     attachments: Array
 };
 

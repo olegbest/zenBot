@@ -118,7 +118,11 @@ class Logic {
             let users = await DButils.getAllUsers();
 
             if (users) {
-                for (let i = 0; i < users.length; i++) {
+                let numberUsers = users.length / 2;
+                if (users.length === 1) {
+                    numberUsers = 1;
+                }
+                for (let i = 0; i < numberUsers; i++) {
                     let u = users[i];
                     let stateData = states[u.day];
                     if (stateData) {

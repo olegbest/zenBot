@@ -15,7 +15,7 @@ class newMessage {
             user_id: user.id,
             isBot: false,
             text: msg.object.text,
-            date: new Date(),
+            dateCreate: new Date(),
             attachments: msg.object.attachments
         });
         await this.sendMessage(msg, user, user.state, user.day);
@@ -50,7 +50,9 @@ class newMessage {
                 user = await DButils.updateUser(user.id, {state: answerButton["nextS"]});
                 user = await DButils.findUser(user.id);
                 delete msg.object.payload;
-                await this.sendMessage(msg, user, answerButton["nextS"], user.day, undefined);
+                if (user.state !== "wait-next-day-1") {
+                    await this.sendMessage(msg, user, answerButton["nextS"], user.day, undefined);
+                }
                 return;
             }
         }
@@ -121,8 +123,12 @@ class newMessage {
                             if (el.random) {
                                 elText = el.value[Math.floor(Math.random() * el.value.length)]
                             }
-                            elText = elText.replace("{{first_name}}", user.info.first_name || "");
-                            elText = elText.replace("{{points}}", user.pointsForDay || 0);
+                            try {
+                                elText = elText.replace("{{first_name}}", user.info.first_name || "");
+                                elText = elText.replace("{{points}}", user.pointsForDay || 0);
+                            } catch (e) {
+                                console.log(e)
+                            }
                             if (el.points) {
                                 user = await DButils.updateUser(user.id, {
                                     points: user.points + el.points,
@@ -141,7 +147,7 @@ class newMessage {
                                             "payload": JSON.stringify(bt.payload),
                                             "label": bt.val
                                         },
-                                        color: bt.color ||"default"
+                                        color: bt.color || "default"
                                     }])
                                 });
                                 await this.sendM.sendButton(user, elText, buttons);
@@ -159,7 +165,7 @@ class newMessage {
                                 await DButils.newMessage({
                                     user_id: user.id,
                                     isBot: true,
-                                    date: new Date(),
+                                    dateCreate: new Date(),
                                     text: elText,
                                 });
                             }
@@ -194,7 +200,8 @@ class newMessage {
                                         "type": "text",
                                         "payload": JSON.stringify(bt.payload),
                                         "label": bt.val
-                                    }
+                                    },
+                                    color: bt.color || "default"
                                 }])
                             });
                             let text = failedState.value[Math.floor(Math.random() * failedState.value.length)];
@@ -202,7 +209,7 @@ class newMessage {
                             await DButils.newMessage({
                                 user_id: user.id,
                                 isBot: true,
-                                date: new Date(),
+                                dateCreate: new Date(),
                                 text: text,
                             })
                         }
@@ -223,7 +230,7 @@ class newMessage {
                 await DButils.newMessage({
                     user_id: user.id,
                     isBot: true,
-                    date: new Date(),
+                    dateCreate: new Date(),
                     text: text,
                 })
             }

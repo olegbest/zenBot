@@ -153,8 +153,12 @@ class newMessage {
                                 await this.sendM.sendButton(user, elText, buttons);
                             } else if (el.type === "photo") {
                                 let photo = await this.methods.getPhotoMessage(__dirname + el.photo);
-                                photo = photo[0];
-                                let attach = `photo${photo.owner_id}_${photo.id}`;
+                                console.log(photo);
+                                let attach = "";
+                                if (photo) {
+                                    photo = photo[0];
+                                    attach = `photo${photo.owner_id}_${photo.id}`;
+                                }
                                 await this.sendM.sendAttachment(user, elText, attach)
                             } else if (el.type === "doc") {
                                 await this.sendM.sendAttachment(user, "", elText)

@@ -39,7 +39,7 @@ class Methods {
             console.log(e)
         }
 
-        // serverResponse = JSON.parse(serverResponse);
+        serverResponse = JSON.parse(serverResponse);
         try {
             return await this.api.call("photos.saveMessagesPhoto", {
                 photo: serverResponse.photo,

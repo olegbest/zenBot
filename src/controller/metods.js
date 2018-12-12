@@ -13,49 +13,89 @@ class Methods {
     }
 
     async getPhotoMessage(image, userId) {
-        let link = await this.api.call("photos.getMessagesUploadServer", {peer_id: userId});
+        let link;
+        try {
+            link = await this.api.call("photos.getMessagesUploadServer", {peer_id: userId});
+        } catch (e) {
+            console.log("Не может получить ссылку для загрузки на сервер для сообщений");
+            console.log(e)
+        }
 
-        let serverResponse = await new Promise((resolve, reject) => {
-            request.post({
-                url: link.upload_url,
-                formData: {photo: fs.createReadStream(image)}
-            }, function (err, httpResponse, body) {
-                if (err) {
-                    return console.error('upload failed:', err);
-                }
-                resolve(body)
-            })
-        });
-        serverResponse = JSON.parse(serverResponse);
-        return await this.api.call("photos.saveMessagesPhoto", {
-            photo: serverResponse.photo,
-            server: serverResponse.server,
-            hash: serverResponse.hash
-        });
+        let serverResponse;
+        try {
+            serverResponse = await new Promise((resolve, reject) => {
+                request.post({
+                    url: link.upload_url,
+                    formData: {photo: fs.createReadStream(image)}
+                }, function (err, httpResponse, body) {
+                    if (err) {
+                        return console.error('upload failed:', err);
+                    }
+                    resolve(body)
+                })
+            });
+        } catch (e) {
+            console.log("Не может загрузить фото на сервер в сообщениях");
+            console.log(e)
+        }
+
+        // serverResponse = JSON.parse(serverResponse);
+        try {
+            return await this.api.call("photos.saveMessagesPhoto", {
+                photo: serverResponse.photo,
+                server: serverResponse.server,
+                hash: serverResponse.hash
+            });
+        } catch (e) {
+            console.log("Не может сохранить фото в сообщения");
+            console.log(e);
+        }
+
     }
 
     async changePhotoGroup(image, group_id) {
-        let link = await this.api.call("photos.getOwnerCoverPhotoUploadServer", {
-            group_id,
-            crop_y2: 400,
-            crop_x2: 1590
-        });
-        let serverResponse = await new Promise((resolve, reject) => {
-            request.post({
-                url: link.upload_url,
-                formData: {photo: fs.createReadStream(image)}
-            }, function (err, httpResponse, body) {
-                if (err) {
-                    return console.error('upload failed:', err);
-                }
-                resolve(body)
-            })
-        });
+        let link;
+        try {
+            link = await this.api.call("photos.getOwnerCoverPhotoUploadServer", {
+                group_id,
+                crop_y2: 400,
+                crop_x2: 1590
+            });
+        } catch (e) {
+            console.log("Не может получить ссылку для загрузки на сервер");
+            console.log(e)
+        }
+
+        let serverResponse
+
+        try {
+            serverResponse = await new Promise((resolve, reject) => {
+                request.post({
+                    url: link.upload_url,
+                    formData: {photo: fs.createReadStream(image)}
+                }, function (err, httpResponse, body) {
+                    if (err) {
+                        return console.error('upload failed:', err);
+                    }
+                    resolve(body)
+                })
+            });
+
+        } catch (e) {
+            console.log("Не может загрузить фото на сервер");
+            console.log(e)
+        }
+
         serverResponse = JSON.parse(serverResponse);
-        return await this.api.call("photos.saveOwnerCoverPhoto", {
-            photo: serverResponse.photo,
-            hash: serverResponse.hash
-        });
+        try {
+            return await this.api.call("photos.saveOwnerCoverPhoto", {
+                photo: serverResponse.photo,
+                hash: serverResponse.hash
+            });
+        } catch (e) {
+            console.log("Не может сохранить фото на обложку");
+            console.log(e);
+        }
 
 
     }

@@ -202,7 +202,7 @@ class Methods {
                         // console.log(repost);
                         let user = await DButils.findUser(repost.from_id);
                         if (user) {
-                            if (user.numberDay === post.dayPost) {
+                            if (user.numberDay === post.dayPost || post.id === 341892) {
                                 if (post.repost.indexOf(user.id) === -1) {
                                     let repostPost = post.repost;
                                     repostPost.push(user.id);

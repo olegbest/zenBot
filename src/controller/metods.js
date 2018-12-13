@@ -154,6 +154,7 @@ class Methods {
             for (let i = 0; i < arrPosts.length; i++) {
                 let postData = arrPosts[i];
                 let likes = await this.getLikes(id_group, postData.id, postData.type);
+                await wait(5000);
                 let reposts = await this.getReposts(id_group, postData.id);
                 let commentsVideo;
                 if (postData.type === "video") {

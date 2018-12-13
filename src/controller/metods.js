@@ -206,12 +206,18 @@ class Methods {
                                 if (post.repost.indexOf(user.id) === -1) {
                                     let repostPost = post.repost;
                                     repostPost.push(user.id);
+                                    let numberPoints = 10;
+                                    let text = postsData.doRepost[Math.floor(Math.random() * postsData.doRepost.length)];
+                                    if (post.id === 341892) {
+                                        numberPoints = 30;
+                                        text = `${user.info.first_name || ""}, за репост, как и обещала, я дарю тебе 30 баллов. Помни: чем больше баллов ты наберешь, тем больше у тебя шансов оказаться на обложке Шпилек 😉`;
+                                    }
                                     await DButils.updatePost(post.id, {repost: repostPost});
                                     await DButils.updateUser(user.id, {
-                                        points: user.points + 10,
-                                        pointsForDay: (user.pointsForDay || 0) + 10
+                                        points: user.points + numberPoints,
+                                        pointsForDay: (user.pointsForDay || 0) + numberPoints
                                     });
-                                    let text = postsData.doRepost[Math.floor(Math.random() * postsData.doRepost.length)];
+
                                     await this.sendM.sendText(user, text);
                                 }
                             }

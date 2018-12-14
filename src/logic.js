@@ -92,7 +92,7 @@ class Logic {
         // });
         setInterval(async () => {
             await this.methods.updateLikeRepostAndComment(this.group_id);
-        }, 2 * 60 * 1000);
+        }, 3 * 60 * 1000);
 
         setInterval(async () => {
             await sendNextDay(this.methods, this.newMessage)

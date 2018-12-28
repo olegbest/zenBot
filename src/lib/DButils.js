@@ -14,6 +14,10 @@ module.exports = {
         return await userModel.deleteOne({"id": id})
     },
 
+    async findByData(data) {
+        return await userModel.find(data)
+    },
+
     async getAllUsers() {
         return await userModel.find({});
     },

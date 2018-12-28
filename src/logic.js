@@ -22,134 +22,91 @@ class Logic {
     }
 
     async start() {
-        this.listen.on(async (ctx) => {
-            console.log(ctx);
-            let u = {
-                object: ctx.message,
-                group_id: this.group_id
-            };
-            if (u.object.text === "/restart") {
-                await DButils.deleteUser(u.object.from_id);
-            }
-            await this.newMessage.logic(u);
-
-
-        });
-
-        this.listen.event("wall_reply_new", async (ctx) => {
-            console.log(ctx);
-            let u = {
-                object: ctx.message,
-                group_id: this.group_id
-            };
-            await this.methods.newComment(u.object.from_id, u.object.post_id)
-        });
-        // this.listen.event("wall_repost", async (ctx) => {
+        // this.listen.on(async (ctx) => {
         //     console.log(ctx);
         //     let u = {
         //         object: ctx.message,
         //         group_id: this.group_id
+        //     };
+        //     if (u.object.text === "/restart") {
+        //         await DButils.deleteUser(u.object.from_id);
         //     }
-        //     await newCommentOrRepost(u.object.from_id, u.object.post_id, 'repost');
+        //     await this.newMessage.logic(u);
+        //
+        //
         // });
-
-        this.listen.startPolling();
         //
-        // this.updates.getUpdates(async updates => {
-        //     // console.log(updates);
-        //     if (updates) {
-        //         if (updates.length > 0) {
+        // this.listen.event("wall_reply_new", async (ctx) => {
+        //     console.log(ctx);
+        //     let u = {
+        //         object: ctx.message,
+        //         group_id: this.group_id
+        //     };
+        //     await this.methods.newComment(u.object.from_id, u.object.post_id)
+        // });
         //
-        //             for (let i = 0; i < updates.length; i++) {
-        //                 let u = updates[i];
-        //                 switch (u.type) {
-        //                     case 'message_new': {
-        //                         console.log("new message");
-        //                         await this.newMessage.logic(u);
-        //                         break;
-        //                     }
-        //                     case 'wall_reply_new': { // коммент на пост
-        //                         await newCommentOrRepost(u.object.from_id, u.object.post_id, 'comments');
-        //                         break;
-        //                     }
-        //                     case 'wall_reply_delete': { //удалил коммент
-        //                         break;
-        //                     }
+        // this.listen.startPolling();
         //
-        //                     case 'wall_repost': { //репост записи
-        //                         await newCommentOrRepost(u.object.from_id, u.object.post_id, 'repost');
-        //                         break;
-        //                     }
+        // setInterval(async () => {
+        //     await this.methods.updateLikeRepostAndComment(this.group_id);
+        // }, 3 * 60 * 1000);
         //
-        //                     default: {
-        //                         break;
-        //                     }
+        // setInterval(async () => {
+        //     await sendNextDay(this.methods, this.newMessage)
+        // }, 60 * 1000);
         //
+        // setInterval(async () => {
+        //     let infoImgGroup = await DButils.findCountMessage(2);
+        //     if (infoImgGroup) {
+        //         let nowDate = new Date();
+        //         let lastDate = new Date(infoImgGroup.lastDateUpdate);
+        //         lastDate.setHours(nowDate.getHours() + 24);
+        //         if (nowDate > lastDate) {
+        //             let link = await getImageGroup();
+        //             await downloadFile(link);
+        //             await wait(40 * 1000);
+        //             await this.methods.changePhotoGroup(__dirname + '/zenerit.png', this.group_id);
+        //             await DButils.updateCountMessage(2, {lastDateUpdate: new Date()})
+        //         }
+        //     }
+        // }, 5 * 60 * 1000);
+        //
+        // setInterval(async () => { //проверка длительных сообщений
+        //     let users = await DButils.getAllUsers();
+        //
+        //     if (users) {
+        //         let numberUsers = users.length / 2;
+        //         if (users.length === 1) {
+        //             numberUsers = 1;
+        //         }
+        //         for (let i = 0; i < numberUsers; i++) {
+        //             let u = users[i];
+        //             let stateData = states[u.day];
+        //             if (stateData) {
+        //                 stateData = states[u.day][u.oldState];
+        //                 if (stateData) {
+        //                     if (u.lastMessageDate && stateData.isDbTime && u.state === "typing") {
+        //                         console.log("Этап 3");
+        //                         let lastDate = new Date(u.lastMessageDate);
+        //                         lastDate.setMilliseconds(lastDate.getMilliseconds() + ((stateData.time || 240000) + 120000));
+        //                         console.log(lastDate);
+        //                         if (+new Date() > +lastDate) {
+        //                             let msg = {
+        //                                 object: {
+        //                                     from_id: u.id
+        //                                 }
+        //                             };
+        //                             console.log("Этап 4");
+        //                             await DButils.updateUser(u.id, {lastMessageDate: new Date()});
+        //                             await this.newMessage.sendMessage(msg, u, u.oldState, u.day, undefined);
+        //                         }
+        //                     }
         //                 }
         //             }
         //         }
         //     }
-        // });
-        setInterval(async () => {
-            await this.methods.updateLikeRepostAndComment(this.group_id);
-        }, 3 * 60 * 1000);
-
-        setInterval(async () => {
-            await sendNextDay(this.methods, this.newMessage)
-        }, 60 * 1000);
-
-        setInterval(async () => {
-            let infoImgGroup = await DButils.findCountMessage(2);
-            if (infoImgGroup) {
-                let nowDate = new Date();
-                let lastDate = new Date(infoImgGroup.lastDateUpdate);
-                lastDate.setHours(nowDate.getHours() + 24);
-                if (nowDate > lastDate) {
-                    let link = await getImageGroup();
-                    await downloadFile(link);
-                    await wait(40 * 1000);
-                    await this.methods.changePhotoGroup(__dirname + '/zenerit.png', this.group_id);
-                    await DButils.updateCountMessage(2, {lastDateUpdate: new Date()})
-                }
-            }
-        }, 5 * 60 * 1000);
-
-        setInterval(async () => { //проверка длительных сообщений
-            let users = await DButils.getAllUsers();
-
-            if (users) {
-                let numberUsers = users.length / 2;
-                if (users.length === 1) {
-                    numberUsers = 1;
-                }
-                for (let i = 0; i < numberUsers; i++) {
-                    let u = users[i];
-                    let stateData = states[u.day];
-                    if (stateData) {
-                        stateData = states[u.day][u.oldState];
-                        if (stateData) {
-                            if (u.lastMessageDate && stateData.isDbTime && u.state === "typing") {
-                                console.log("Этап 3");
-                                let lastDate = new Date(u.lastMessageDate);
-                                lastDate.setMilliseconds(lastDate.getMilliseconds() + ((stateData.time || 240000) + 120000));
-                                console.log(lastDate);
-                                if (+new Date() > +lastDate) {
-                                    let msg = {
-                                        object: {
-                                            from_id: u.id
-                                        }
-                                    };
-                                    console.log("Этап 4");
-                                    await DButils.updateUser(u.id, {lastMessageDate: new Date()});
-                                    await this.newMessage.sendMessage(msg, u, u.oldState, u.day, undefined);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }, 3 * 60 * 1000);
-
+        // }, 3 * 60 * 1000);
+        //
         setInterval(async () => {
             let countMessage = await DButils.findCountMessage(1);
             if (countMessage.lastDateUpdate) {
@@ -160,6 +117,25 @@ class Logic {
                 }
             }
         }, 1000)
+
+        let users = await DButils.findByData({$or: [{$and: [{numberDay: 7}, {state: {$ne: "wait-next-day-1"}}]}, {numberDay: {$ne: 7}}]})
+        console.log(users.length)
+        if (users) {
+            let date = new Date();
+            for (let i = 0; i < users.length; i++) {
+                setTimeout(async ()=> {
+                    let u = users[i]
+                    await DButils.updateUser(u.id, {
+                        numberDay: 7,
+                        state: "wait-next-day-1",
+                        day: "day7"
+                    });
+                    await this.sendM.sendText(u, `${u.info.first_name}, к сожалению, пришло время прощаться. Мне жаль, что ты не успела закончить обучение😌, но, надеюсь, что знаний, которые ты почерпнула за эти несколько дней, тебе хватит, чтобы начать работу над собой. Помни: любой успех, любое достижение – только в твоих руках. Никогда не сдавайся, смело иди к своим целям и помни, что ты прекрасна! Я очень рада нашему знакомству!❤️  
+Если тебе понравилось наше общение, можешь оставить свой отзыв здесь https://vk.com/topic-29686754_39152844\n\nПока, хороших тебе праздников!`)
+                }, i * 500)
+            }
+            console.log(date)
+        }
     }
 }
 

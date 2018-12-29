@@ -33,7 +33,7 @@ async function findFaceAndUploadImg(idImage) {
 }
 
 async function getBackGround(user1, user2, user3) {
-    let img = await cloudinary.image("zenirit.png", {
+    let img = await cloudinary.image("zen.png", {
         transformation: [
             {underlay: user1.img, x: -515, y: 54},
             {

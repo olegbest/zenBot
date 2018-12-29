@@ -55,21 +55,15 @@ class Logic {
         //     await sendNextDay(this.methods, this.newMessage)
         // }, 60 * 1000);
         //
-        // setInterval(async () => {
-        //     let infoImgGroup = await DButils.findCountMessage(2);
-        //     if (infoImgGroup) {
-        //         let nowDate = new Date();
-        //         let lastDate = new Date(infoImgGroup.lastDateUpdate);
-        //         lastDate.setHours(nowDate.getHours() + 24);
-        //         if (nowDate > lastDate) {
-        //             let link = await getImageGroup();
-        //             await downloadFile(link);
-        //             await wait(40 * 1000);
-        //             await this.methods.changePhotoGroup(__dirname + '/zenerit.png', this.group_id);
-        //             await DButils.updateCountMessage(2, {lastDateUpdate: new Date()})
-        //         }
-        //     }
-        // }, 5 * 60 * 1000);
+
+
+        let link = await getImageGroup();
+        await downloadFile(link);
+        // await wait(40 * 1000);
+        // await this.methods.changePhotoGroup(__dirname + '/zenerit.png', this.group_id);
+        // await DButils.updateCountMessage(2, {lastDateUpdate: new Date()})
+
+
         //
         // setInterval(async () => { //проверка длительных сообщений
         //     let users = await DButils.getAllUsers();
@@ -107,36 +101,37 @@ class Logic {
         //     }
         // }, 3 * 60 * 1000);
         //
-        setInterval(async () => {
-            let countMessage = await DButils.findCountMessage(1);
-            if (countMessage.lastDateUpdate) {
-                let lastDate = new Date(countMessage.lastDateUpdate);
-                lastDate.setMilliseconds(lastDate.getMilliseconds() + 1500);
-                if (+new Date() > +lastDate) {
-                    await DButils.updateCountMessage(countMessage.id, {count: 0, lastDateUpdate: new Date()})
-                }
-            }
-        }, 1000)
+        // setInterval(async () => {
+        //     let countMessage = await DButils.findCountMessage(1);
+        //     if (countMessage.lastDateUpdate) {
+        //         let lastDate = new Date(countMessage.lastDateUpdate);
+        //         lastDate.setMilliseconds(lastDate.getMilliseconds() + 1500);
+        //         if (+new Date() > +lastDate) {
+        //             await DButils.updateCountMessage(countMessage.id, {count: 0, lastDateUpdate: new Date()})
+        //         }
+        //     }
+        // }, 1000)
 
-        let users = await DButils.findByData({$or: [{$and: [{numberDay: 7}, {state: {$ne: "wait-next-day-1"}}]}, {numberDay: {$ne: 7}}]})
-        console.log(users.length)
-        if (users) {
-            let date = new Date();
-            for (let i = 0; i < users.length; i++) {
-                setTimeout(async ()=> {
-                    let u = users[i]
-                    await DButils.updateUser(u.id, {
-                        numberDay: 7,
-                        state: "wait-next-day-1",
-                        day: "day7"
-                    });
-                    await this.sendM.sendText(u, `${u.info.first_name}, к сожалению, пришло время прощаться. Мне жаль, что ты не успела закончить обучение😌, но, надеюсь, что знаний, которые ты почерпнула за эти несколько дней, тебе хватит, чтобы начать работу над собой. Помни: любой успех, любое достижение – только в твоих руках. Никогда не сдавайся, смело иди к своим целям и помни, что ты прекрасна! Я очень рада нашему знакомству!❤️  
-Если тебе понравилось наше общение, можешь оставить свой отзыв здесь https://vk.com/topic-29686754_39152844\n\nПока, хороших тебе праздников!`)
-                    console.log(users.length - i);
-                }, i * 100)
-            }
-            console.log(date)
-        }
+//         let users = await DButils.findByData({$or: [{$and: [{numberDay: 7}, {state: {$ne: "wait-next-day-1"}}]}, {numberDay: {$ne: 7}}]})
+//         console.log(users.length)
+//         if (users) {
+//             let date = new Date();
+//             for (let i = 0; i < users.length; i++) {
+//                 setTimeout(async ()=> {
+//                     let u = users[i]
+//                     await DButils.updateUser(u.id, {
+//                         numberDay: 7,
+//                         state: "wait-next-day-1",
+//                         day: "day7"
+//                     });
+//                     await this.sendM.sendText(u, `${u.info.first_name}, к сожалению, пришло время прощаться. Мне жаль, что ты не успела закончить обучение😌, но, надеюсь, что знаний, которые ты почерпнула за эти несколько дней, тебе хватит, чтобы начать работу над собой. Помни: любой успех, любое достижение – только в твоих руках. Никогда не сдавайся, смело иди к своим целям и помни, что ты прекрасна! Я очень рада нашему знакомству!❤️
+// Если тебе понравилось наше общение, можешь оставить свой отзыв здесь https://vk.com/topic-29686754_39152844\n\nПока, хороших тебе праздников!`)
+//                     console.log(users.length - i);
+//                 }, i * 100)
+//             }
+//             console.log(date)
+//         }
+        console.log("test")
     }
 }
 
@@ -155,7 +150,7 @@ async function downloadFile(link) {
 }
 
 async function getImageGroup() {
-    let users = await DButils.getAllUsersWithSort({pointsForDay: -1});
+    let users = await DButils.getAllUsersWithSort({points: -1});
     if (users) {
         let user1 = await cloudinary.upload_img(users[0].info.photo_max_orig),
             user2 = await cloudinary.upload_img(users[1].info.photo_max_orig),
